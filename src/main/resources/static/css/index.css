@@ -1,0 +1,9 @@
+.word{
+    font-size: 30px;
+    font-weight: 600;
+    padding-top : 12%;
+    margin: 0;
+}
+.contents{
+    text-align: center;
+}

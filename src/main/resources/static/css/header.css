@@ -1,0 +1,66 @@
+@font-face {
+    font-family: 'CookieRun-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family : 'CookieRun-Regular';
+    margin : 0 0;
+}
+
+.header_wrap{
+    width : 100%;
+    background-color: white;
+    height: 70px;
+    border-bottom: 1px solid #bdbdbd;
+}
+
+.gnb{
+    float : right;
+}
+.container ul{
+    display: flex;
+    list-style: none;
+    margin : 0 0;
+    height: 70px;
+}
+
+.container li{
+    cursor : pointer;
+    display: block;
+    padding : 20px 20px;
+    height: 40px;
+    width : 100px;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.wrap{
+    height: 79.4%;
+}
+
+input[type="text"], input[type="password"]{
+    width : 200px;
+    height: 45px;
+    border-radius: 5px;
+    box-shadow: 1px 1px #eee;
+    border : 1px solid darkgrey;
+    margin: 20px 0;
+}
+
+input[type="submit"]{
+    width: 120px;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 27px;
+    background-color: #e7ffffba;
+    border: 1px solid #b1b1b1;
+    box-shadow: 1px 1px 1px darkgrey;
+    transition: 0.5s;
+}
+
+input[type="submit"]:hover{
+    background-color: #ffbabab0;
+}

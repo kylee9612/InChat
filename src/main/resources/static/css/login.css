@@ -1,0 +1,10 @@
+.contents{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.contents form{
+    padding: 10% 0 0 0;
+}
