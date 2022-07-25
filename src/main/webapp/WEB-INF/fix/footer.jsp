@@ -16,5 +16,6 @@
         <li>iiii410@naver.com</li>
     </ul>
 </div>
+<script src="script/validation.js"></script>
 </body>
 </html>

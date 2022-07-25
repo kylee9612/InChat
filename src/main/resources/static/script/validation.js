@@ -1,45 +1,76 @@
 function handleSubmitNoRefresh(){}
 
 function loginAction(user){
-    alert(user.id);
+    const uri = "/v1/login-user"
+    const redirect_uri = "/index"
+    sendAjax("Log In",user,uri,redirect_uri)
+}
+
+function joinAction(user){
+    const uri = "/v1/add-user"
+    const redirect_uri = "/index"
+    sendAjaxNoReturn("Join",user,uri,redirect_uri)
+}
+
+function logOutAction(){
+    const uri = "/v1/logout-user"
+    const redirect_uri = "/index"
+    sendAjaxNoReturn("Log Out", null, uri,redirect_uri)
+}
+
+function updateAction(user){
+    const uri = "/v1/update-user"
+    const redirect_uri = "/mypage"
+
+    sendAjax("Update",user,uri,redirect_uri)
+}
+
+function deleteAction(id){
+    let user = {
+        "id" : id
+    }
+    const uri = "/v1/delete-user"
+    const redirect_uri = "/index"
+    sendAjaxNoReturn("Delete",user,uri,redirect_uri)
+}
+
+function sendAjax(type, data, uri,redirect_uri){
     jQuery.ajax({
         type: "POST",
-        url: "/v1/login-user",
+        url: uri,
         contentType: 'application/json',
-        data: JSON.stringify(user),
+        data: JSON.stringify(data),
         dataType: "JSON",
         success: function (e) {
-            if(e!==null){
-                sessionStorage.setItem("id",e.id)
-                sessionStorage.setItem("nick",e.nick)
-                alert("Success!")
-                location.href = "/index"
+            if(e !== null) {
+                alert(type+" Success!")
+                location.href = redirect_uri
             }
             else{
-                alert("Check your ID & PW")
+                alert(type+" Failed");
             }
         },
-        error : function (e){
-            alert(e)
+        error : function (request,error){
+            alert(type+" Failed");
+            //alert("code : "+request.status+"\nmessage : "+request.responseText+"\nerror : "+error)
         }
     });
 }
 
-function joinAction(user){
+function sendAjaxNoReturn(type, data, uri,redirect_uri){
     jQuery.ajax({
         type: "POST",
-        url: "/v1/adduser",
+        url: uri,
         contentType: 'application/json',
-        data: JSON.stringify(user),
+        data: JSON.stringify(data),
         dataType: "JSON",
-        success: function (e) {
-            if(e){
-                alert("Join Success!")
-                location.href = "/index"
-            }
+        success: function () {
+            alert(type+" Success!")
         },
         error : function (){
-            alert("error")
+            alert(type+" Success");
+            location.href = redirect_uri
+            //alert("code : "+request.status+"\nmessage : "+request.responseText+"\nerror : "+error)
         }
     });
 }

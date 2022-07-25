@@ -5,7 +5,6 @@
   Time: 오후 4:45
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../fix/header.jsp"%>
 <head>
     <link rel = 'stylesheet' href = 'css/index.css'>
@@ -13,30 +12,20 @@
 <div class = "wrap">
     <div class = "contents">
         <p class = "word">
-           <span>WelCome To Spring World</span><br>
-            <%
-                UserVO userVO = null;
-                if(request.getAttribute("login")!= null&&request.getAttribute("login").equals("failed")){
-            %>
-            <script>
-                alert("Login Failed");
-            </script>
-            <span></span>
-            <%}
-                else if(request.getAttribute("userVO") != null){
-                    userVO = (UserVO) request.getAttribute("userVO");
-            %>
-            <span><%=userVO.getNick()%></span>
-            <%
-            }else if(request.getAttribute("join") != null && request.getAttribute("join").equals("true")){
-            %>
-            <script>
-                alert("Join Successful!");
-            </script>
-            <%
-            }
-            %>
+           <span>WelCome To
+               <c:choose>
+               <c:when test = "${log==null}">
+                   Spring
+               </c:when>
+                <c:otherwise>
+                    <c:out value="${log.getNickname()}"/>
+                </c:otherwise>
+               </c:choose>
+               World
+           </span><br>
         </p>
+        <button>Start to Chat!</button>
+        <button onclick ="location.href='/chatroom'">Start Group Chat!</button>
     </div>
 </div>
 <%@ include file="../fix/footer.jsp"%>

@@ -19,22 +19,34 @@ body {
 
 .gnb{
     float : right;
-}
-.container ul{
+    text-align: center;
     display: flex;
     list-style: none;
     margin : 0 0;
     height: 70px;
 }
 
+.logo{
+    font-weight: 600;
+    font-size: 30px;
+    padding-left: 40px;
+    padding-top: 15px;
+    float: left;
+    cursor: pointer;
+}
+
 .container li{
     cursor : pointer;
     display: block;
-    padding : 20px 20px;
+    margin: 23px 40px 23px 0;
     height: 40px;
     width : 100px;
     font-weight: 600;
     font-size: 17px;
+}
+
+.ul li span{
+    cursor : pointer;
 }
 
 .wrap{
@@ -48,19 +60,27 @@ input[type="text"], input[type="password"]{
     box-shadow: 1px 1px #eee;
     border : 1px solid darkgrey;
     margin: 20px 0;
+    font-weight: 600;
+    font-size: 14px;
+}
+input[type="text"]::placeholder, input[type="password"]::placeholder{
+    font-weight: 200;
+    font-size: 12px;
 }
 
-input[type="submit"]{
+
+input[type="submit"], #submit_box{
     width: 120px;
     height: 40px;
     margin-top: 20px;
     border-radius: 27px;
-    background-color: #e7ffffba;
+    background-color: #fffe564a;
     border: 1px solid #b1b1b1;
     box-shadow: 1px 1px 1px darkgrey;
     transition: 0.5s;
+    cursor: pointer;
 }
 
-input[type="submit"]:hover{
+input[type="submit"]:hover, #submit_box:hover{
     background-color: #ffbabab0;
 }

@@ -1,0 +1,77 @@
+#input_area{
+    text-align: center;
+    width: 600px;
+}
+
+#text-area{
+    height: 90%;
+    width: 50%;
+    min-width: 600px;
+    border : 1px solid #00ffff;
+    border-radius: 35px;
+    background-color: #ebf9ffad;
+    box-shadow: 2px 2px 1px 3px #80ff969c;
+    overflow: hidden;
+}
+
+#text-input{
+    height: 85%;
+    overflow-y: scroll;
+}
+
+#text-input::-webkit-scrollbar{
+    width: 5px;
+}
+
+#text-input::-webkit-scrollbar-thumb{
+    background-color : darkgrey;
+    border-radius : 10px;
+    box-shadow : black;
+}
+#text-input::-webkit-scrollbar-track{
+    border-radius : 10px;
+}
+
+.contents{
+    display: flex;
+    flex-direction: column;
+    padding: 5% 20% 0 20%;
+    align-content: center;
+    align-items: center;
+    height: 85%;
+    overflow-y : scroll;
+}
+
+.contents p{
+    margin: 20px 30px;
+}
+#msg{
+    width : 450px;
+}
+
+#button_send{
+    width: 70px;
+    height: 45px;
+    border-radius: 15px;
+    border: 0px;
+    background: #fbfbbc;
+    transition: 0.5s;
+    box-shadow: 1px 1px 1px #f33c3c;
+}
+
+#button_send:hover{
+    background-color: #bbefff75;
+    box-shadow: 1px 1px 1px #fb44447a;
+    transition: 0.5s;
+}
+
+#msg::placeholder{
+    color :gainsboro;
+}
+
+.secondary{
+    text-align: left;
+}
+.first{
+    text-align: right;
+}

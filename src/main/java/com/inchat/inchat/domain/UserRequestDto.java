@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class UserRequestDto {
-    private String id,pw,nick;
+    private String id,pw,nickname;
 }

@@ -23,5 +23,11 @@ public class MainController {
     public String joinIn(){
         return "/WEB-INF/views/join.jsp";
     }
+    @RequestMapping("/mypage")
+    public String myPage() { return "/WEB-INF/views/mypage.jsp";}
 
+    @RequestMapping("/chatroom")
+    public String chatRoom(){
+        return "/WEB-INF/views/chatRoom.jsp";
+    }
 }
