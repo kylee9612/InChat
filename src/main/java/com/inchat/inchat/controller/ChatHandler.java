@@ -1,4 +1,4 @@
-package com.inchat.inchat.domain;
+package com.inchat.inchat.controller;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;

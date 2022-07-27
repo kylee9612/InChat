@@ -5,7 +5,7 @@
   Time: 오전 10:19
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="../fix/header.jsp" %>
 <head>
     <link rel="stylesheet" href="css/chatroom.css">
@@ -44,13 +44,16 @@
     function sendMessage() {
         let msg = document.getElementById("msg");
         console.log(usernick + ":" + msg.value);
-        sock.send(usernick + ":" + msg.value);
-        msg.value = '';
+        if(msg.value !== '') {
+            sock.send(usernick + ":" + msg.value);
+            msg.value = '';
+        }
     }
 
     function onMessage(msg) {
         let data = msg.data;
         let target;
+
 
         /*  메세지 전송한 사람   */
         let sessionId = null;
@@ -84,6 +87,7 @@
 
     function onClose(event) {
         let str = usernick + ":님이 퇴장했습니다";
+        console.log(str);
         sock.send(str);
     }
 

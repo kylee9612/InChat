@@ -1,16 +1,15 @@
 package com.inchat.inchat.configuration;
 
-import com.inchat.inchat.domain.ChatHandler;
+import com.inchat.inchat.controller.ChatHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.annotation.*;
 
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSocket
-public class WebSocketConfig implements WebSocketConfigurer {
+public class WebSocketConfig implements WebSocketConfigurer{
 
     private final ChatHandler chatHandler;
 
@@ -22,7 +21,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
     //        registry.addHandler(chatHandler,"ws/chat")
 //                .setAllowedOrigins("localhost:8084").withSockJS()
 //                .setClientLibraryUrl("https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.2/sockjs.js");
-        registry.addHandler(chatHandler, "ws/chat").setAllowedOrigins("*");
+        registry.addHandler(chatHandler, "ws/chat").setAllowedOrigins("localhost:8084");
     }
-
 }

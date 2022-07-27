@@ -1,23 +1,20 @@
 package com.inchat.inchat.domain;
 
+import com.inchat.inchat.util.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Primary;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.inchat.inchat.util.Timestamp;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Table(name="user")
-public class UserVO {
+public class UserVO extends Timestamp{
     @Id
     private String id;
 

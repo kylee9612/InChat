@@ -65,11 +65,12 @@ function sendAjaxNoReturn(type, data, uri,redirect_uri){
         data: JSON.stringify(data),
         dataType: "JSON",
         success: function () {
-            alert(type+" Success!")
+            alert(type+" Success!");
+            location.href = redirect_uri;
         },
         error : function (){
             alert(type+" Success");
-            location.href = redirect_uri
+            location.href = redirect_uri;
             //alert("code : "+request.status+"\nmessage : "+request.responseText+"\nerror : "+error)
         }
     });
