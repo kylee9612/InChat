@@ -1,4 +1,3 @@
-function handleSubmitNoRefresh(){}
 
 function loginAction(user){
     const uri = "/v1/login-user"
@@ -74,4 +73,22 @@ function sendAjaxNoReturn(type, data, uri,redirect_uri){
             //alert("code : "+request.status+"\nmessage : "+request.responseText+"\nerror : "+error)
         }
     });
+}
+
+function sendAjaxInt(data, uri){
+    let valid = 0
+    jQuery.ajax({
+        type: "POST",
+        url: uri,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        dataType: "JSON",
+        success: function (e) {
+            valid = e
+        },
+        error : function (){
+            valid = 0;
+        }
+    });
+    return valid;
 }

@@ -32,13 +32,11 @@ public class RoomController {
     @GetMapping(value = "/roomList")
     public ModelAndView rooms(){
         ModelAndView modelAndView = new ModelAndView("roomList");
-
         modelAndView.addObject("ArrayList",repository.findAllRooms());
-
         return modelAndView;
     }
 
-    //  채팅방 생성
+
     @PostMapping(value = "/rooms")
     public String create(@RequestBody UserRequestDto userRequestDto1, @RequestBody UserRequestDto userRequestDto2, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("room_code",repository.createChatRoomVO(userRequestDto1.getId(), userRequestDto2.getId()));

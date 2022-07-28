@@ -23,7 +23,33 @@
         "id": '${log.getId()}'
     };
 
-    let order = false;
+    let validation = false;
+    let uri = "/v1/check-queue";
+
+    function checkQueue() {
+        if (validation === true) {
+            let code = sendAjaxInt(user, uri);
+            if (code !== 0) {
+                location.href = "/chatPage";
+            }
+        } else {
+            jQuery.ajax({
+                type: "POST",
+                url: uri,
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                dataType: "JSON",
+                success: function (e) {
+                    console.log("e : " + e);
+                    validation = e;
+                    uri = "/v1/wait-queue";
+                },
+                error: function () {
+                    validation = false;
+                }
+            });
+        }
+    }
 
     jQuery.ajax({
         type: "POST",
@@ -32,11 +58,7 @@
         data: JSON.stringify(user),
         datatype: "JSON",
         success: function (e) {
-            console.log(e);
-            if (e === true) {
-                location.href = "/chatPage";
-                order = true;
-            }
+
         },
         error: function () {
         }
@@ -52,6 +74,7 @@
             loading.html("Loading");
             timer = 0;
         }
+        checkQueue();
     }, 1000);
 </script>
 <%@ include file="../fix/footer.jsp" %>

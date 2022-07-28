@@ -1,13 +1,15 @@
 package com.inchat.inchat.controller;
 
+import com.inchat.inchat.domain.ChatRoomRepository;
 import com.inchat.inchat.domain.UserRequestDto;
 import com.inchat.inchat.domain.UserVO;
 import com.inchat.inchat.service.UserService;
 import lombok.extern.log4j.Log4j2;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,8 +21,11 @@ import java.util.Queue;
 public class UserController {
     @Autowired
     private UserService userService = new UserService();
-
+    private ChatRoomRepository repository = new ChatRoomRepository();
     private Queue<UserVO> userQueue = new LinkedList<>();
+
+    private UserVO user1;
+    private UserVO user2;
     @PostMapping("/v1/get-user")
     public UserVO getUser(@RequestBody UserRequestDto userRequestDto){
         UserVO user= userService.readUser(userRequestDto);
@@ -84,11 +89,25 @@ public class UserController {
 
     @PostMapping("/v1/check-queue")
     public boolean checkQueue(@RequestBody UserRequestDto userRequestDto){
-        UserVO user = userService.readUser(userRequestDto);
-        if(userQueue.peek() != null && userQueue.peek().getId().equals(user.getId())){
-            userQueue.poll();
+        if(userQueue.peek() != null && userQueue.peek().getId().equals(userRequestDto.getId())){
+            if(user1 == null)
+                user1 = userQueue.poll();
+            else
+                user2 = userQueue.poll();
+            System.out.println(userRequestDto.getId()+" 내차례군");
             return true;
+        }else
+            return false;
+    }
+
+    //  채팅방 생성
+    @PostMapping("/v1/wait-queue")
+    public int waitQueue (@RequestBody UserRequestDto userRequestDto, RedirectAttributes redirectAttributes){
+        if(user1!=null && user2 != null){
+            System.out.println(user1.getId()+" 찾았다 내짝");
+            System.out.println(redirectAttributes);
+            return repository.createChatRoomVO(user1.getId(), user2.getId()).getRoom_code();
         }
-        return false;
+        return 0;
     }
 }
