@@ -14,9 +14,23 @@
     border-radius: 25px;
     border: 0px;
     transition: 0.5s;
+    margin: 6% 1%;
 }
 
 .contents button:hover{
     background-color: rgba(207, 225, 255, 61%);
     transition: 0.5s;
+}
+
+.bg{
+    opacity: 0.7;
+    background-repeat: no-repeat;
+    width: 30%;
+    position: absolute;
+    z-index: -99;
+    background-size: cover;
+    background-image: url(../img/bg.png);
+    height: 30%;
+    right: 5%;
+    top: 10%;
 }

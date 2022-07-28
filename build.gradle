@@ -43,7 +43,7 @@ dependencies {
 
     // TomCat For JSP
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.0.20'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.58'
 
     // Standard Lib
     // https://mvnrepository.com/artifact/taglibs/standard
@@ -65,9 +65,6 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.webjars/stomp-websocket
     implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
-
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
-//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     ///////////////////////////////////////////////////////////////////////
     implementation 'org.springframework.boot:spring-boot-starter-web'

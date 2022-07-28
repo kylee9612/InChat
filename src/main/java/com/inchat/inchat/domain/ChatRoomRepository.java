@@ -32,6 +32,7 @@ public class ChatRoomRepository {
 
     public ChatRoomVO createChatRoomVO(String id1, String id2){
         ChatRoomVO room = ChatRoomVO.create_room(id1,id2);
-
+        chatRoomVOHashMap.put(room.getRoom_code(),room);
+        return room;
     }
 }

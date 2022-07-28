@@ -1,30 +1,49 @@
 package com.inchat.inchat.controller;
 
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 @Controller
 public class MainController {
 
     @RequestMapping("/")
-    public String mainPage() {return "/WEB-INF/views/index.jsp"; }
+    public ModelAndView mainPage() {
+        return new ModelAndView("index"); }
 
     @RequestMapping("/index")
-    public String index(){
-        return "/WEB-INF/views/index.jsp";
+    public ModelAndView index(){
+        return mainPage();
     }
     @RequestMapping("/login")
-    public String login(){
-        return "/WEB-INF/views/login.jsp";
+    public ModelAndView login(){
+        return new ModelAndView("login");
     }
     @RequestMapping("/joinIn")
-    public String joinIn(){
-        return "/WEB-INF/views/join.jsp";
+    public ModelAndView joinIn(){
+        return new ModelAndView ("join");
     }
     @RequestMapping("/mypage")
-    public String myPage() { return "/WEB-INF/views/mypage.jsp";}
+    public ModelAndView myPage() { return new ModelAndView("mypage");}
 
     @RequestMapping("/chatroom")
-    public String chatRoom(){
-        return "/WEB-INF/views/chatRoom.jsp";
+    public ModelAndView chatRoom(){
+        return new ModelAndView("chatRoom");
+    }
+
+    @RequestMapping("/loading")
+    public ModelAndView loading(){
+        return new ModelAndView("loading");
+    }
+
+    @RequestMapping("/chatPage")
+    public ModelAndView chatPage(){
+        return new ModelAndView("/chatPage");
+    }
+
+    @RequestMapping("/roomList")
+    public ModelAndView chatList(){
+        return new ModelAndView("/roomList");
     }
 }

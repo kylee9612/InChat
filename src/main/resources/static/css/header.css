@@ -84,3 +84,11 @@ input[type="submit"], #submit_box{
 input[type="submit"]:hover, #submit_box:hover{
     background-color: #ffbabab0;
 }
+
+#loading{
+    text-align: center;
+    margin: 0;
+    font-size: 30px;
+    font-weight: 600;
+    padding : 17.5% 0;
+}

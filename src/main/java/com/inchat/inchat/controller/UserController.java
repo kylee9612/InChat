@@ -3,6 +3,7 @@ package com.inchat.inchat.controller;
 import com.inchat.inchat.domain.UserRequestDto;
 import com.inchat.inchat.domain.UserVO;
 import com.inchat.inchat.service.UserService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,12 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.LinkedList;
+import java.util.Queue;
 
 @RestController
+@Log4j2
 public class UserController {
     @Autowired
     private UserService userService = new UserService();
 
+    private Queue<UserVO> userQueue = new LinkedList<>();
     @PostMapping("/v1/get-user")
     public UserVO getUser(@RequestBody UserRequestDto userRequestDto){
         UserVO user= userService.readUser(userRequestDto);
@@ -68,5 +73,22 @@ public class UserController {
         UserVO user = userService.updateUser(userRequestDto);
         request.getSession().setAttribute("log",user);
         return user;
+    }
+
+    @PostMapping("/v1/queue-addition")
+    public boolean addQueue(@RequestBody UserRequestDto userRequestDto){
+        UserVO user = userService.readUser(userRequestDto);
+        userQueue.add(user);
+        return true;
+    }
+
+    @PostMapping("/v1/check-queue")
+    public boolean checkQueue(@RequestBody UserRequestDto userRequestDto){
+        UserVO user = userService.readUser(userRequestDto);
+        if(userQueue.peek() != null && userQueue.peek().getId().equals(user.getId())){
+            userQueue.poll();
+            return true;
+        }
+        return false;
     }
 }

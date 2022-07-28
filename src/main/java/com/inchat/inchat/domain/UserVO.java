@@ -4,6 +4,8 @@ import com.inchat.inchat.util.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@ToString
 @Table(name="user")
 public class UserVO extends Timestamp{
     @Id

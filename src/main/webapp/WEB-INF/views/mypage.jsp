@@ -5,7 +5,7 @@
   Time: 오후 3:27
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="../fix/header.jsp" %>
 <head>
     <link rel="stylesheet" href="css/mypage.css">
@@ -14,6 +14,7 @@
     <c:if test="${log==null}">
         <c:redirect url="/index"/>
     </c:if>
+    <c:set var="str" value='${session.getAttribute("page")}'/>
     <div class="tabs">
         <ul>
             <li onclick="myPage()"><span>내 정보</span></li>
@@ -33,6 +34,12 @@
 </div>
 <script>
     const container = $("#contents")
+    const page = '<c:out value="${var}"/>';
+    if(page === 'info'){
+        myPage();
+    }else if(page === 'delete'){
+        deleteUser();
+    }
 
     function updateEvent(){
         let user = {
@@ -63,6 +70,9 @@
             <button id = "submit_box" onclick="updateEvent()">제출</button>
         </form>`
         )
+        <%
+        session.setAttribute("page","info");
+        %>
     }
 
     function deleteUser(){
@@ -73,6 +83,9 @@
             <span id = "error_box"></span>
             <button id = "submit_box" onclick='deleteCheck()'">삭제</button>`
         )
+        <%
+        session.setAttribute("page","delete");
+        %>
     }
 
 </script>

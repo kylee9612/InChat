@@ -40,7 +40,6 @@
         }
     })
 
-
     function sendMessage() {
         let msg = document.getElementById("msg");
         console.log(username + ":" + msg.value);

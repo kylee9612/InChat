@@ -10,6 +10,7 @@
     <link rel = 'stylesheet' href = 'css/index.css'>
 </head>
 <div class = "wrap">
+    <div class = "bg" src="img/bg.png"></div>
     <div class = "contents">
         <p class = "word">
            <span>WelCome To
@@ -24,7 +25,7 @@
                World
            </span><br>
         </p>
-        <button>Start to Chat!</button>
+        <button onclick="location.href = '/loading'">Start to Chat!</button>
         <button onclick ="location.href='/chatroom'">Start Group Chat!</button>
     </div>
 </div>
