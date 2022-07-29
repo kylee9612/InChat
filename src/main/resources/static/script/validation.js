@@ -117,7 +117,7 @@ function waitQueue(user){
             room = e;
             console.log("room no : "+room);
             if(e!==0){
-                location.href = "/chatPage";
+                location.href = "/chatPage?room-code="+e;
             }
         }
     });

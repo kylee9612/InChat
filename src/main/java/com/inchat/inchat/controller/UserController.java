@@ -50,7 +50,7 @@ public class UserController {
     public UserVO loginUser(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
         UserVO check = userService.readUser(userRequestDto);
-        if(session.getAttribute("log")==null && check != null){
+        if(session.getAttribute("log")==null && check != null && userRequestDto.getPw().equals(check.getPw())){
             session.setAttribute("log",check);
             return check;
         }
@@ -94,13 +94,12 @@ public class UserController {
         if(userQueue.peek() != null && userQueue.peek().getId().equals(userRequestDto.getId())){
             if(user1 == null) {
                 user1 = userQueue.poll();
-                System.out.println(user1.getNickname() + " : user 1");
+                System.out.println(user1.getId() + "Waiting");
             }
             else {
                 user2 = userQueue.poll();
-                System.out.println(user2.getNickname() + " : user 2");
+                System.out.println(user2.getId() + "Waiting");
             }
-            System.out.println(userRequestDto.getId()+" 내차례군");
             return true;
         }else
             return false;
@@ -110,13 +109,33 @@ public class UserController {
     @PostMapping("/v1/wait-queue")
     public int waitQueue (@RequestBody UserRequestDto userRequestDto){
         if(user1!=null && user2 != null){
-            System.out.println(user1.getId()+" 찾았다 내짝 "+user2.getId());
-            ChatRoomVO room =roomService.createChatRoomVO(user1.getId(), user2.getId());
+            ChatRoomVO room;
+                //  방이  이미 존재하는경우,
+                //  중복해서 생성하지 않고, 해당 방으로 들어간다
+            for(ChatRoomVO ro : roomService.findAllRooms()){
+                if(ro.getUser1_id().equals(user1.getId()) && ro.getUser2_id().equals(user2.getId()) ||
+                        ro.getUser1_id().equals(user2.getId()) && ro.getUser2_id().equals(user1.getId())){
+                    user1 = null;
+                    user2 = null;
+                    return ro.getRoom_code();
+                }
+            }
+            room=roomService.createChatRoomVO(user1.getId(), user2.getId());
             user1 = null;
             user2 = null;
             return room.getRoom_code();
-        }else {
+        }else if(user1 == null && user2 == null){
+            //  두번쨰 큐에 있는 유저도 redirect 해주기 위함
+            //  새로 생성 된 경우, ArrayList 의 맨 마지막에 있으므로,
+            //  Collection.revert 메소드로 뒤집어준다
+            //  가장 최신에 생성된 채팅방이 참가하고자하는 방이다.
+            for(ChatRoomVO ro : roomService.findAllRooms()){
+                if(ro.getUser1_id().equals(userRequestDto.getId()) || ro.getUser2_id().equals(userRequestDto.getId())){
+                    return ro.getRoom_code();
+                }
+            }
             return 0;
-        }
+        }else
+            return 0;
     }
 }

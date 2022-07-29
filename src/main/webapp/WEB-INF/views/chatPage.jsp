@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.inchat.inchat.domain.ChatRoomVO" %>
+<%@ page import="com.inchat.inchat.service.RoomService" %><%--
   Created by IntelliJ IDEA.
   User: iiii4
   Date: 2022-07-27
@@ -27,24 +28,21 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
-    let roomId = ${room.getRoom_code()};
-    let username = ${log.getNickname()};
+    const url = new URL(location.href);
+    const param = url.searchParams;
+
+    let roomCode = param.get("room-code");
+    let username = '${log.getNickname()}';
 
     let sock = new SockJS("/stomp/chat");
     let stomp = Stomp.over(sock);
-
-    document.addEventListener("keydown",event=>{
-        if(event.keyCode===13){
-            sendMessage();
-        }
-    })
 
     function sendMessage() {
         let msg = document.getElementById("msg");
         console.log(username + ":" + msg.value);
         if(msg.value !== '') {
             stomp.send('/pub/chat/message',{},JSON.stringify({
-                roomId : roomId,
+                room_code : roomCode,
                 message : msg.value,
                 writer : username
             }));
@@ -54,23 +52,32 @@
 
     stomp.connect({}, function() {
 
-        stomp.subscribe("/sub/chat/room"+roomId, function (chat){
+        stomp.subscribe("/sub/chat/rooms/"+roomCode, function (chat){
             let content = JSON.parse(chat.body);
 
             let writer = content.writer;
-            let str = "<div class='alert " + target + "'>";
-            str += "<p>" + writer + " : " + message + "</p>";
-            str += "</div></div>";
+            let message = content.message;
             let target = '';
-            if(writer===usernick){
+
+            if(writer===username){
                 target = 'first';
             }else{
                 target = 'secondary';
             }
+            let str = "<div class='alert " + target + "'>";
+            str += "<p>" + writer + " : " + message + "</p>";
+            str += "</div></div>";
             $("#text-input").append(str);
         })
 
-        stomp.send('pub/chat/enter',{}, JSON.stringify({roodId : roomId, writer : username}));
+        stomp.send('pub/chat/enter',{}, JSON.stringify(
+            {room_code : roomCode, writer : username}));
     });
+
+    document.addEventListener("keydown",event=>{
+        if(event.keyCode===13){
+            sendMessage();
+        }
+    })
 </script>
 <%@ include file="../fix/footer.jsp" %>

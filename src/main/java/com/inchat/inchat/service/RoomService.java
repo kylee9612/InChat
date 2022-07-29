@@ -43,4 +43,9 @@ public class RoomService {
         return room;
     }
 
+    public void deleteChatRoomVO(int code){
+        ChatRoomVO room = findRoomByCode(code);
+        if(room!=null)
+            repository.deleteById(room.getRoom_code());
+    }
 }

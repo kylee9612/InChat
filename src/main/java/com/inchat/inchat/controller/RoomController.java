@@ -43,6 +43,6 @@ public class RoomController {
 
     @GetMapping("/rooms")
     public void getRoom(int room_code, Model model){
-        model.addAttribute("room",roomService.findRoomByCode(room_code));
+        model.addAttribute("rooms",roomService.findRoomByCode(room_code));
     }
 }
