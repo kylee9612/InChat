@@ -3,7 +3,9 @@
     background-color: #e9d9d9;
     height: 140px;
     text-align: center;
-    border-top : 0.5px solid #a37a7a;
+    border-top : 1px solid #a37a7a;
+    position: absolute;
+    bottom: 0;
 }
 
 .copyright{

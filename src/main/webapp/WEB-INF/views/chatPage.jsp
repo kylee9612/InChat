@@ -5,7 +5,7 @@
   Time: 오후 12:08
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="../fix/header.jsp" %>
 <head>
     <link rel="stylesheet" href="css/chatroom.css">
@@ -17,7 +17,6 @@
     <div class="contents">
         <div id="text-area">
             <div id="text-input">
-
             </div>
             <div id="input_area">
                 <input type="text" id="msg" placeholder="Type a message..." required>
@@ -28,7 +27,7 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
-    let roomId = ${room.id};
+    let roomId = ${room.getRoom_code()};
     let username = ${log.getNickname()};
 
     let sock = new SockJS("/stomp/chat");

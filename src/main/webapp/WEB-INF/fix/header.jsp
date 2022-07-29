@@ -15,6 +15,7 @@
     <title>InChat</title>
 </head>
 <body>
+<script src="script/validation.js"></script>
 <div class="header_wrap">
     <div class="container">
         <span>

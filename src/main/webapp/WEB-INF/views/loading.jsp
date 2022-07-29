@@ -16,55 +16,25 @@
     <div>
         <p id="loading">Loading</p>
     </div>
-</div>
+</div>>
 <script>
     const loading = $("#loading");
     const user = {
         "id": '${log.getId()}'
     };
-
     let validation = false;
-    let uri = "/v1/check-queue";
+    let room = null;
+    let timer = 0;
 
-    function checkQueue() {
+    addQueue(user);
+
+    function queueWork() {
         if (validation === true) {
-            let code = sendAjaxInt(user, uri);
-            if (code !== 0) {
-                location.href = "/chatPage";
-            }
+            waitQueue(user);
         } else {
-            jQuery.ajax({
-                type: "POST",
-                url: uri,
-                contentType: 'application/json',
-                data: JSON.stringify(user),
-                dataType: "JSON",
-                success: function (e) {
-                    console.log("e : " + e);
-                    validation = e;
-                    uri = "/v1/wait-queue";
-                },
-                error: function () {
-                    validation = false;
-                }
-            });
+            checkQueue(user);
         }
     }
-
-    jQuery.ajax({
-        type: "POST",
-        url: "/v1/queue-addition",
-        contentType: 'application/json',
-        data: JSON.stringify(user),
-        datatype: "JSON",
-        success: function (e) {
-
-        },
-        error: function () {
-        }
-    });
-
-    let timer = 0;
 
     setInterval(() => {
         if (timer !== 3) {
@@ -74,7 +44,8 @@
             loading.html("Loading");
             timer = 0;
         }
-        checkQueue();
+        queueWork();
     }, 1000);
+
 </script>
 <%@ include file="../fix/footer.jsp" %>

@@ -1,15 +1,15 @@
 package com.inchat.inchat.controller;
 
-import com.inchat.inchat.domain.ChatRoomRepository;
+import com.inchat.inchat.domain.ChatRoomVO;
 import com.inchat.inchat.domain.UserRequestDto;
 import com.inchat.inchat.domain.UserVO;
+import com.inchat.inchat.service.RoomService;
 import com.inchat.inchat.service.UserService;
 import lombok.extern.log4j.Log4j2;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +21,8 @@ import java.util.Queue;
 public class UserController {
     @Autowired
     private UserService userService = new UserService();
-    private ChatRoomRepository repository = new ChatRoomRepository();
+    @Autowired
+    private RoomService roomService = new RoomService();
     private Queue<UserVO> userQueue = new LinkedList<>();
 
     private UserVO user1;
@@ -84,16 +85,21 @@ public class UserController {
     public boolean addQueue(@RequestBody UserRequestDto userRequestDto){
         UserVO user = userService.readUser(userRequestDto);
         userQueue.add(user);
+        System.out.println(user.getNickname() + " added in Queue / size : "+userQueue.size());
         return true;
     }
 
     @PostMapping("/v1/check-queue")
     public boolean checkQueue(@RequestBody UserRequestDto userRequestDto){
         if(userQueue.peek() != null && userQueue.peek().getId().equals(userRequestDto.getId())){
-            if(user1 == null)
+            if(user1 == null) {
                 user1 = userQueue.poll();
-            else
+                System.out.println(user1.getNickname() + " : user 1");
+            }
+            else {
                 user2 = userQueue.poll();
+                System.out.println(user2.getNickname() + " : user 2");
+            }
             System.out.println(userRequestDto.getId()+" 내차례군");
             return true;
         }else
@@ -102,12 +108,15 @@ public class UserController {
 
     //  채팅방 생성
     @PostMapping("/v1/wait-queue")
-    public int waitQueue (@RequestBody UserRequestDto userRequestDto, RedirectAttributes redirectAttributes){
+    public int waitQueue (@RequestBody UserRequestDto userRequestDto){
         if(user1!=null && user2 != null){
-            System.out.println(user1.getId()+" 찾았다 내짝");
-            System.out.println(redirectAttributes);
-            return repository.createChatRoomVO(user1.getId(), user2.getId()).getRoom_code();
+            System.out.println(user1.getId()+" 찾았다 내짝 "+user2.getId());
+            ChatRoomVO room =roomService.createChatRoomVO(user1.getId(), user2.getId());
+            user1 = null;
+            user2 = null;
+            return room.getRoom_code();
+        }else {
+            return 0;
         }
-        return 0;
     }
 }

@@ -1,6 +1,6 @@
 package com.inchat.inchat.service;
 
-import com.inchat.inchat.domain.UserRepository;
+import com.inchat.inchat.repository.UserRepository;
 import com.inchat.inchat.domain.UserRequestDto;
 import com.inchat.inchat.domain.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;

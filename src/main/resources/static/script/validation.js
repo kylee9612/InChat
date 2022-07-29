@@ -75,20 +75,50 @@ function sendAjaxNoReturn(type, data, uri,redirect_uri){
     });
 }
 
-function sendAjaxInt(data, uri){
-    let valid = 0
+function addQueue(user){
     jQuery.ajax({
         type: "POST",
-        url: uri,
+        url: "/v1/queue-addition",
         contentType: 'application/json',
-        data: JSON.stringify(data),
-        dataType: "JSON",
+        data: JSON.stringify(user),
+        datatype: "JSON",
         success: function (e) {
-            valid = e
         },
-        error : function (){
-            valid = 0;
+        error: function () {
+            addQueue(user);
         }
     });
-    return valid;
+}
+
+function checkQueue(user){
+    jQuery.ajax({
+        type: "POST",
+        url: "/v1/check-queue",
+        contentType: 'application/json',
+        data: JSON.stringify(user),
+        dataType: "JSON",
+        success: function (e) {
+            console.log("e : " + e);
+            console.log("validation : "+ validation);
+            if(e === true)
+                validation = true;
+        }
+    });
+}
+
+function waitQueue(user){
+    jQuery.ajax({
+        type: "POST",
+        url: "/v1/wait-queue",
+        contentType: 'application/json',
+        data: JSON.stringify(user),
+        dataType: "JSON",
+        success: function (e) {
+            room = e;
+            console.log("room no : "+room);
+            if(e!==0){
+                location.href = "/chatPage";
+            }
+        }
+    });
 }
