@@ -5,7 +5,6 @@ import com.inchat.inchat.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Service
@@ -22,6 +21,17 @@ public class RoomService {
         return result;
     }
 
+    public List<ChatRoomVO> findRoomsByUserId(String id){
+        List<ChatRoomVO> result = repository.findAll();
+        for(int i = 0 ; i < result.size(); i++){
+            if(!result.get(i).getUser1_id().equals(id) && !result.get(i).getUser2_id().equals(id)){
+                result.remove(i);
+                i--;
+            }
+        }
+        return result;
+    }
+
     public ChatRoomVO findRoomByTwoId(String id1, String id2){
         List<ChatRoomVO> result = repository.findAll();
         //  최신 순으로 return
@@ -35,6 +45,10 @@ public class RoomService {
     }
 
     public ChatRoomVO findRoomByCode(int code){
+        if(repository==null){
+            System.out.println("으아아아아ㅏ앙ㅇ");
+        }
+        repository.findAll();
         List<ChatRoomVO> result = repository.findAll();
         for(ChatRoomVO room : result){
             if(room.getRoom_code() == code){

@@ -34,7 +34,6 @@ public class RoomController {
         return modelAndView;
     }
 
-
     @PostMapping(value = "/rooms")
     public String create(@RequestBody UserRequestDto userRequestDto1, @RequestBody UserRequestDto userRequestDto2, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("room_code",roomService.createChatRoomVO(userRequestDto1.getId(), userRequestDto2.getId()));

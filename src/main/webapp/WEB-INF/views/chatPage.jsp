@@ -1,14 +1,5 @@
-<%@ page import="com.inchat.inchat.domain.ChatRoomVO" %>
-<%@ page import="com.inchat.inchat.service.RoomService" %>
-<%@ page import="com.inchat.inchat.service.ChatService" %>
 <%@ page import="com.inchat.inchat.domain.ChatMessageDTO" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: iiii4
-  Date: 2022-07-27
-  Time: 오후 12:08
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="../fix/header.jsp" %>
 <head>
@@ -17,12 +8,11 @@
 <%
     int roomCode = request.getParameter("room-code") == null ? 0 : Integer.parseInt(request.getParameter("room-code"));
     List<ChatMessageDTO> chatList = null;
-    ChatService chatService = new ChatService();
-    UserVO user = (UserVO) request.getAttribute("log");
+    UserVO user = (UserVO) request.getSession().getAttribute("log");
     if (roomCode == 0) {
         response.sendRedirect("/index");
     } else {
-        chatList = chatService.findChatByRoomCode(roomCode);
+        chatList = (List<ChatMessageDTO>) request.getSession().getAttribute("chatList");
     }
 %>
 <c:if test="${log==null}">
@@ -33,22 +23,25 @@
         <div id="text-area">
             <div id="text-input">
                 <%
-                    for (ChatMessageDTO chat : chatList) {
-                        String target = user.getNickname().equals(chat.getWriter()) ? "first" : "secondary";
+                    if (chatList != null) {
+                        for (ChatMessageDTO messageDTO : chatList) {
+                            String target = user.getNickname().equals(messageDTO.getWriter()) ? "first" : "secondary";
                 %>
-                <div class='alert <%=target%>"'>
-                    <p><%=chat.getWriter()%> : <%=chat.getMessage()%></p>
+                <div class='alert <%=target%>'>
+                    <p><%=messageDTO.getWriter()%> : <%=messageDTO.getMessage()%>
+                    </p>
                 </div>
-            <%
-                }
-            %>
-        </div>
-        <div id="input_area">
-            <input type="text" id="msg" placeholder="Type a message..." required>
-            <button type="submit" class="btn" id="button_send" onclick="sendMessage()">전송</button>
+                <%
+                        }
+                    }
+                %>
+            </div>
+            <div id="input_area">
+                <input type="text" id="msg" placeholder="Type a message..." required>
+                <button type="submit" class="btn" id="button_send" onclick="sendMessage()">전송</button>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>

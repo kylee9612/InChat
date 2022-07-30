@@ -42,3 +42,33 @@
 #error_box{
     color : red;
 }
+
+#contents ul{
+    list-style: none;
+    overflow-y: scroll;
+    height: 95%;
+}
+
+#contents ul::-webkit-scrollbar{
+    width: 5px;
+}
+
+#contents ul::-webkit-scrollbar-thumb{
+    background-color : darkgrey;
+    border-radius : 10px;
+    box-shadow : black;
+}
+
+#contents ul::-webkit-scrollbar-track{
+    border-radius : 10px;
+}
+
+.chat_list{
+    width: 200px;
+    text-align: left;
+    height: 60px;
+    font-size: 20px;
+    border-bottom: 1px solid;
+    cursor: pointer;
+    margin : 30px 0;
+}

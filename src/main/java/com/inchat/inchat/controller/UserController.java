@@ -3,6 +3,7 @@ package com.inchat.inchat.controller;
 import com.inchat.inchat.domain.ChatRoomVO;
 import com.inchat.inchat.domain.UserRequestDto;
 import com.inchat.inchat.domain.UserVO;
+import com.inchat.inchat.service.ChatService;
 import com.inchat.inchat.service.RoomService;
 import com.inchat.inchat.service.UserService;
 import lombok.extern.log4j.Log4j2;
@@ -23,6 +24,8 @@ public class UserController {
     private UserService userService = new UserService();
     @Autowired
     private RoomService roomService = new RoomService();
+    @Autowired
+    private ChatService chatService = new ChatService();
     private final Queue<UserVO> userQueue = new LinkedList<>();
 
     private UserVO user1;
@@ -53,6 +56,7 @@ public class UserController {
         UserVO check = userService.readUser(userRequestDto);
         if (session.getAttribute("log") == null && check != null && userRequestDto.getPw().equals(check.getPw())) {
             session.setAttribute("log", check);
+            session.setAttribute("roomList",roomService.findRoomsByUserId(check.getId()));
             return check;
         }
         return null;
@@ -115,10 +119,12 @@ public class UserController {
             if (room == null) {
                 System.out.println("방생성!");
                 room = roomService.createChatRoomVO(user1.getId(), user2.getId());
+                request.getSession().setAttribute("roomList",roomService.findRoomsByUserId(userRequestDto.getId()));
                 user1 = null;
                 user2 = null;
             }
             request.getSession().setAttribute("room", room);
+            request.getSession().setAttribute("chatList",chatService.findChatByRoomCode(room.getRoom_code()));
             return room.getRoom_code();
         } else if (user1 == null && user2 == null) {
             //  두번쨰 큐에 있는 유저도 redirect 해주기 위함
@@ -128,6 +134,7 @@ public class UserController {
             for (ChatRoomVO ro : roomService.findAllRooms()) {
                 if (ro.getUser1_id().equals(userRequestDto.getId()) || ro.getUser2_id().equals(userRequestDto.getId())) {
                     request.getSession().setAttribute("room", ro);
+                    request.getSession().setAttribute("chatList",chatService.findChatByRoomCode(ro.getRoom_code()));
                     return ro.getRoom_code();
                 }
             }
