@@ -43,8 +43,8 @@
         } else if (timer === 3) {
             loading.html("Loading");
             timer = 0;
+            queueWork();
         }
-        queueWork();
     }, 1000);
 
 </script>

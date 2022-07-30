@@ -13,33 +13,41 @@ public class RoomService {
 
     @Autowired
     private RoomRepository repository;
-    private HashMap<Integer, ChatRoomVO> chatRoomVOHashMap = new LinkedHashMap<>();
 
-    @PostConstruct
-    public void init(){
-        List<ChatRoomVO> list = repository.findAll();
-        for(ChatRoomVO room : list){
-            chatRoomVOHashMap.put(room.getRoom_code(),room);
-        }
-    }
-
-    public ArrayList<ChatRoomVO> findAllRooms(){
-        ArrayList<ChatRoomVO> result = new ArrayList<>(chatRoomVOHashMap.values());
+    public List<ChatRoomVO> findAllRooms(){
+        List<ChatRoomVO> result = repository.findAll();
         //  최신 순으로 return
         Collections.reverse(result);
 
         return result;
     }
 
+    public ChatRoomVO findRoomByTwoId(String id1, String id2){
+        List<ChatRoomVO> result = repository.findAll();
+        //  최신 순으로 return
+        Collections.reverse(result);
+        for(ChatRoomVO room : result){
+            if(room.getUser1_id().equals(id1) && room.getUser2_id().equals(id2) ||
+            room.getUser1_id().equals(id2) && room.getUser2_id().equals(id1))
+                return room;
+        }
+        return null;
+    }
+
     public ChatRoomVO findRoomByCode(int code){
-        return chatRoomVOHashMap.get(code);
+        List<ChatRoomVO> result = repository.findAll();
+        for(ChatRoomVO room : result){
+            if(room.getRoom_code() == code){
+                return room;
+            }
+        }
+        return null;
     }
 
     public ChatRoomVO createChatRoomVO(String id1, String id2){
         ChatRoomVO room = ChatRoomVO.create_room(id1,id2);
-        System.out.println(room.getRoom_code());
+        System.out.println(room.getRoom_code() + " Created");
         repository.save(room);
-        chatRoomVOHashMap.put(room.getRoom_code(),room);
         return room;
     }
 
