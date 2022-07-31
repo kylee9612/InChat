@@ -100,8 +100,9 @@ function checkQueue(user){
         success: function (e) {
             console.log("e : " + e);
             console.log("validation : "+ validation);
-            if(e === true)
+            if(e === true){
                 validation = true;
+            }
         }
     });
 }
