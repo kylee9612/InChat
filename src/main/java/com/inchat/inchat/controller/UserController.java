@@ -21,15 +21,16 @@ import java.util.Queue;
 @Log4j2
 public class UserController {
     @Autowired
-    private UserService userService = new UserService();
+    private UserService userService;
     @Autowired
-    private RoomService roomService = new RoomService();
+    private RoomService roomService;
     @Autowired
-    private ChatService chatService = new ChatService();
+    private ChatService chatService;
     private final Queue<UserVO> userQueue = new LinkedList<>();
 
     private UserVO user1;
     private UserVO user2;
+    private ChatRoomVO roomVO;
 
     @PostMapping("/v1/get-user")
     public UserVO getUser(@RequestBody UserRequestDto userRequestDto) {
@@ -56,7 +57,7 @@ public class UserController {
         UserVO check = userService.readUser(userRequestDto);
         if (session.getAttribute("log") == null && check != null && userRequestDto.getPw().equals(check.getPw())) {
             session.setAttribute("log", check);
-            session.setAttribute("roomList",roomService.findRoomsByUserId(check.getId()));
+            session.setAttribute("roomList", roomService.findRoomsByUserId(check.getId()));
             return check;
         }
         return null;
@@ -99,9 +100,11 @@ public class UserController {
             if (user1 == null) {
                 user1 = userQueue.poll();
                 System.out.println(user1.getId() + " Waiting");
-            } else {
+            } else if (user2 == null) {
                 user2 = userQueue.poll();
                 System.out.println(user2.getId() + " Waiting");
+                roomVO = roomService.createChatRoomVO(user1.getId(), user2.getId());
+                System.out.println("Room made");
             }
             return true;
         } else
@@ -111,35 +114,19 @@ public class UserController {
     //  채팅방 생성
     @PostMapping("/v1/wait-queue")
     public int waitQueue(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request) {
-        if (user1 != null && user2 != null) {
-            //  방이  이미 존재하는경우,
-            //  중복해서 생성하지 않고, 해당 방으로 들어간다
-            System.out.println("유저 둘다 찼다");
-            ChatRoomVO room = roomService.findRoomByTwoId(user1.getId(), user2.getId());
-            if (room == null) {
-                System.out.println("방생성!");
-                room = roomService.createChatRoomVO(user1.getId(), user2.getId());
-                request.getSession().setAttribute("roomList",roomService.findRoomsByUserId(userRequestDto.getId()));
+        if (roomVO != null) {
+            if(user1 != null && user1.getId().equals(userRequestDto.getId())){
                 user1 = null;
+            }else if(user2 != null && user2.getId().equals(userRequestDto.getId())){
                 user2 = null;
             }
-            request.getSession().setAttribute("room", room);
-            request.getSession().setAttribute("chatList",chatService.findChatByRoomCode(room.getRoom_code()));
-            return room.getRoom_code();
-        } else if (user1 == null && user2 == null) {
-            //  두번쨰 큐에 있는 유저도 redirect 해주기 위함
-            //  새로 생성 된 경우, ArrayList 의 맨 마지막에 있으므로,
-            //  Collection.revert 메소드로 뒤집어준다
-            //  가장 최신에 생성된 채팅방이 참가하고자하는 방이다.
-            for (ChatRoomVO ro : roomService.findAllRooms()) {
-                if (ro.getUser1_id().equals(userRequestDto.getId()) || ro.getUser2_id().equals(userRequestDto.getId())) {
-                    request.getSession().setAttribute("room", ro);
-                    request.getSession().setAttribute("chatList",chatService.findChatByRoomCode(ro.getRoom_code()));
-                    return ro.getRoom_code();
-                }
-            }
-            return 0;
-        } else
-            return 0;
+            request.getSession().setAttribute("room", roomVO);
+            request.getSession().setAttribute("roomList", roomService.findRoomsByUserId(userRequestDto.getId()));
+            int code = roomVO.getRoom_code();
+            if(user1 == null && user2 == null)
+                roomVO = null;
+            return code;
+        }
+        return 0;
     }
 }

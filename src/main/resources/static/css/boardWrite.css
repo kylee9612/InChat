@@ -1,0 +1,43 @@
+form{
+    margin-top: 4%;
+    text-align: center;
+}
+
+form::placeholder{
+    color:gainsboro;
+}
+
+.title{
+    margin-top: 5%;
+}
+
+.contents{
+    width: 600px;
+    height: 60%;
+    border-radius: 5px;
+    box-shadow: 1px 1px #eee;
+    border: 1px solid darkgrey;
+    margin: 20px 0;
+    font-weight: 600;
+    font-size: 14px;
+    resize: none;
+}
+
+.contents::placeholder{
+    color:gainsboro;
+}
+
+.submit_btn{
+    position: relative;
+    left: 12%;
+    width: 110px;
+    height: 50px;
+    border-radius: 25px;
+    border: 0px;
+    transition: 0.5s;
+}
+
+.submit_btn:hover{
+    background-color: rgba(207, 225, 255, 61%);
+    transition: 0.5s;
+}

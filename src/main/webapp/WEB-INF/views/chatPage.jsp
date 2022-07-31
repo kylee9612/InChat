@@ -1,18 +1,12 @@
-<%@ page import="com.inchat.inchat.domain.ChatMessageDTO" %>
-<%@ page import="java.util.List" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="../fix/header.jsp" %>
 <head>
     <link rel="stylesheet" href="css/chatroom.css">
 </head>
 <%
-    int roomCode = request.getParameter("room-code") == null ? 0 : Integer.parseInt(request.getParameter("room-code"));
-    List<ChatMessageDTO> chatList = null;
-    UserVO user = (UserVO) request.getSession().getAttribute("log");
-    if (roomCode == 0) {
+    if (request.getParameter("room-code") == null) {
         response.sendRedirect("/index");
-    } else {
-        chatList = (List<ChatMessageDTO>) request.getSession().getAttribute("chatList");
     }
 %>
 <c:if test="${log==null}">
@@ -22,19 +16,25 @@
     <div class="contents">
         <div id="text-area">
             <div id="text-input">
-                <%
-                    if (chatList != null) {
-                        for (ChatMessageDTO messageDTO : chatList) {
-                            String target = user.getNickname().equals(messageDTO.getWriter()) ? "first" : "secondary";
-                %>
-                <div class='alert <%=target%>'>
-                    <p><%=messageDTO.getWriter()%> : <%=messageDTO.getMessage()%>
-                    </p>
-                </div>
-                <%
-                        }
-                    }
-                %>
+                <c:forEach varStatus="status" var="chat" items="${chatList}">
+                    <c:choose>
+                        <c:when test="${chat.getWriter() eq log.getNickname()}">
+                            <c:set var="target" value="first"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="target" value="secondary"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <div class='alert ${target}'>
+                        <p>
+                            <c:out value="${chat.getWriter()}"/> : <c:out value="${chat.getMessage()}"/>
+                            <br>
+                            <span>
+                        <c:out value="${fn:split(chat.getCreatedAt(),'T')[1].substring(0,5)}"/>
+                    </span>
+                        </p>
+                    </div>
+                </c:forEach>
             </div>
             <div id="input_area">
                 <input type="text" id="msg" placeholder="Type a message..." required>
@@ -71,9 +71,11 @@
 
         stomp.subscribe("/sub/chat/rooms/" + roomCode, function (chat) {
             let content = JSON.parse(chat.body);
+            console.log(chat);
 
             let writer = content.writer;
             let message = content.message;
+            let curtime = content.createdAt.split("T")[1].substring(0,5);
             let target = '';
 
             if (writer === username) {
@@ -82,7 +84,8 @@
                 target = 'secondary';
             }
             let str = "<div class='alert " + target + "'>";
-            str += "<p>" + writer + " : " + message + "</p>";
+            str += "<p>" + writer + " : " + message + "<br><span>" + curtime;
+            str +="</span></p>";
             str += "</div></div>";
             $("#text-input").append(str);
         })

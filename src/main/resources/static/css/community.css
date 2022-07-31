@@ -1,0 +1,42 @@
+
+.contents{
+    display: flex;
+    justify-content: center;
+    height: 65%;
+    position: relative;
+    top: 5%;
+}
+
+.contents ul{
+    list-style: none;
+    margin-top: 3%;
+    overflow: hidden;
+}
+
+.contents ul li{
+    height: 40px;
+    border-bottom: 1px solid rgba(134, 134, 134, 0.43);
+}
+
+li label{
+    margin : 0 50px;
+}
+
+button{
+    width: 100px;
+    height: 50px;
+    border-radius: 25px;
+    border: 0;
+    transition: 0.5s;
+}
+
+button:hover{
+    background-color: rgba(207, 225, 255, 61%);
+    transition: 0.5s;
+}
+
+.write_btn{
+    position: absolute;
+    bottom : -5%;
+    left : 62%;
+}

@@ -26,14 +26,6 @@ public class RoomController {
     @Autowired
     private UserService Userservice = new UserService();
 
-    //  목록 조회
-    @GetMapping(value = "/roomList")
-    public ModelAndView rooms(){
-        ModelAndView modelAndView = new ModelAndView("roomList");
-        modelAndView.addObject("ArrayList",roomService.findAllRooms());
-        return modelAndView;
-    }
-
     @PostMapping(value = "/rooms")
     public String create(@RequestBody UserRequestDto userRequestDto1, @RequestBody UserRequestDto userRequestDto2, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("room_code",roomService.createChatRoomVO(userRequestDto1.getId(), userRequestDto2.getId()));

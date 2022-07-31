@@ -75,3 +75,7 @@
 .first{
     text-align: right;
 }
+
+.alert p span{
+    font-size: 12px;
+}

@@ -27,6 +27,7 @@ public class StompChatController {
         messageDTO.init();
         System.out.println(messageDTO);
         repository.save(messageDTO);
+        messageDTO = repository.findById(messageDTO.getChat_code()).get();
         template.convertAndSend("/sub/chat/rooms/"+messageDTO.getRoom_code(), messageDTO);
     }
 }
