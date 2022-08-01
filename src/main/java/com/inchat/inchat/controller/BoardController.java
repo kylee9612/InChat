@@ -35,4 +35,9 @@ public class BoardController {
         boardService.updateViewCount(boardDTO);
         return boardService.findBoardByCode(boardDTO.getCode());
     }
+
+    @PostMapping("/v2/delete-board")
+    public boolean deleteBoard(@RequestBody BoardDTO boardDTO){
+        return boardService.deleteBoard(boardDTO);
+    }
 }

@@ -34,12 +34,26 @@ public class BoardService {
     public void updateBoard(BoardDTO board) {
         BoardVO boardVO = findBoardByCode(board.getCode());
         boardVO = boardVO.update(board);
-        if (boardVO != null)
+        if (boardVO != null) {
             repository.save(boardVO);
+        }
     }
 
     public void updateViewCount(BoardDTO board) {
         board.addViewCount();
         updateBoard(board);
+    }
+
+    public void updateViewCount(BoardVO board) {
+        board.addViewCount();
+        repository.save(board);
+    }
+
+    public boolean deleteBoard(BoardDTO board){
+        if(board!=null && board.getCode() != 0) {
+            repository.deleteById(board.getCode());
+            return true;
+        }
+        return false;
     }
 }

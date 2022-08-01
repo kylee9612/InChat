@@ -25,6 +25,7 @@
                 <label class="createdAt" >작성일</label>
                 <label class="viewCount" >조회수</label>
             </li>
+            <div id="cons">
             <c:if test="${boardList.size() != 0}">
                 <c:forEach var="board" items="${boardList}" varStatus="status">
                     <li class = "board" onclick="location.href='/communityView?code=<c:out value="${board.getCode()}"/> '">
@@ -36,6 +37,7 @@
                     </li>
                 </c:forEach>
             </c:if>
+            </div>
             <button class="write_btn" onclick="location.href='/communityWrite?page=<%=pageNo%>'">글쓰기</button>
         </ul>
     </div>

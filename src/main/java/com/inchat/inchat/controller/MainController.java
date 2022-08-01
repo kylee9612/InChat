@@ -1,5 +1,6 @@
 package com.inchat.inchat.controller;
 
+import com.inchat.inchat.domain.BoardDTO;
 import com.inchat.inchat.domain.BoardVO;
 import com.inchat.inchat.domain.ChatMessageDTO;
 import com.inchat.inchat.service.BoardService;
@@ -67,15 +68,16 @@ public class MainController {
         List<BoardVO> list = boardService.findAllBoardOrderByCode();
         Collections.reverse(list);
         mv.addObject("boardList",list);
-        System.out.println(mv);
         return mv;
     }
 
     @RequestMapping("/communityWrite")
-    public ModelAndView communityWrite(Model model){
+    public ModelAndView communityWrite(HttpServletRequest request){
         ModelAndView mv = new ModelAndView("communityWrite");
-        if(model != null){
-            mv.addObject(model);
+        if(request.getParameter("code")!=null){
+            int code = Integer.parseInt(request.getParameter("code"));
+            BoardVO board = boardService.findBoardByCode(code);
+            mv.addObject("board",board);
         }
         return mv;
     }
@@ -86,6 +88,7 @@ public class MainController {
         int boardNo = request.getParameter("code") == null ? 0 : Integer.parseInt(request.getParameter("code"));
         if(boardNo!= 0) {
             BoardVO boardVO = boardService.findBoardByCode(boardNo);
+            boardService.updateViewCount(boardVO);
             mv.addObject("board", boardVO);
             return mv;
         }

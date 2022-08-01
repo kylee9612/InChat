@@ -39,4 +39,8 @@ public class BoardVO extends Timestamp {
         this.viewCount = board.getViewCount();
         return this;
     }
+
+    public void addViewCount(){
+        this.viewCount++;
+    }
 }

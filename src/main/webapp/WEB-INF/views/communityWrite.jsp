@@ -17,31 +17,27 @@
     <h2 class="pageTitle">글 작성하기</h2>
     <div class="cons">
         <c:choose>
-            <c:when test="${board eq null}">
+            <c:when test="${board ne null}">
+                <input name="title" id="title" style="width : 600px;" type="text"
+                       value="<c:out value="${board.getTitle()}"/>" placeholder="Title">
+                <br>
+                <textarea name="contents" id="contents" placeholder="Contents"><c:out
+                        value="${board.getContents()}"/></textarea>
+                <br>
+                <button id="submit_btn" onclick="boardUpdate()" style="left:12%;">수정하기</button>
+            </c:when>
+            <c:otherwise>
                 <input name="title" id="title" style="width : 600px;" type="text" placeholder="Title">
                 <br>
                 <textarea name="contents" id="contents" placeholder="Contents"></textarea>
-            </c:when>
-            <c:otherwise>
-                <input name="title" id="title" style="width : 600px;" type="text" value="<c:out value="${board.getTitle()}"/>" placeholder="Title">
                 <br>
-                <textarea name="contents" id="contents" placeholder="Contents">
-                        <c:out value="${board.getContents()}"/>
-                </textarea>
+                <button id="submit_btn" onclick="boardWrite()" style="left:12%;">작성하기</button>
             </c:otherwise>
         </c:choose>
-        <br>
-        <button id="submit_btn" onclick="boardWrite()">작성하기</button>
     </div>
 </div>
 <script>
-    // $("#submit_btn").onclick(() =>
-    // document.getElementById("submit_btn").addEventListener("event",evt =>{
-    //     evt.preventDefault();
-    // })
-
     function boardWrite() {
-        alert("hi")
         let board = {
             "writer": '${log.getNickname()}',
             "title": $("#title").val(),
@@ -61,6 +57,33 @@
                 alert("에러")
             }
         });
+    }
+
+    function boardUpdate() {
+        let hi = '${board}';
+        if (hi !== ''){
+            let board = {
+                "code": '${board.getCode()}',
+                "writer": '${log.getNickname()}',
+                "title": $("#title").val(),
+                "contents": $("#contents").val(),
+                "viewCount": '${board.viewCount}'
+            }
+            jQuery.ajax({
+                type: "POST",
+                url: "/v2/update-board",
+                contentType: 'application/json',
+                data: JSON.stringify(board),
+                datatype: "JSON",
+                success: function (e) {
+                    alert("성공적으로 글이 수정되었습니다.")
+                    location.href = "/community"
+                },
+                error: function (e) {
+                    alert("에러")
+                }
+            });
+        }
     }
 
 </script>

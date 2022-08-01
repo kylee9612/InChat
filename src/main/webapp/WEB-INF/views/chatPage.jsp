@@ -68,7 +68,6 @@
     }
 
     stomp.connect({}, function () {
-
         stomp.subscribe("/sub/chat/rooms/" + roomCode, function (chat) {
             let content = JSON.parse(chat.body);
             console.log(chat);
