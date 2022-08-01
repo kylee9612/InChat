@@ -60,7 +60,6 @@ public class RoomService {
             code = random.nextInt(1000000);
         }
         ChatRoomVO room = new ChatRoomVO(code,id1,id2);
-
         System.out.println(room.getRoom_code() + " Created");
         repository.save(room);
         return room;
