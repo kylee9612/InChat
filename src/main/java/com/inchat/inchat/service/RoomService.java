@@ -50,7 +50,6 @@ public class RoomService {
     }
 
     public ChatRoomVO findRoomByCode(int code) {
-<<<<<<< HEAD
         Optional<ChatRoomVO> result = repository.findById(code);
         return result.get();
     }
@@ -61,19 +60,6 @@ public class RoomService {
             code = random.nextInt(1000000);
         }
         ChatRoomVO room = new ChatRoomVO(code,id1,id2);
-=======
-        List<ChatRoomVO> result = repository.findAll();
-        for (ChatRoomVO room : result) {
-            if (room.getRoom_code() == code) {
-                return room;
-            }
-        }
-        return null;
-    }
-
-    public ChatRoomVO createChatRoomVO(String id1, String id2) {
-        ChatRoomVO room = ChatRoomVO.create_room(id1, id2);
->>>>>>> 0d43d48f036604fe5d324aca0a6cd82b4064858c
         System.out.println(room.getRoom_code() + " Created");
         repository.save(room);
         return room;
