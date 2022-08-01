@@ -118,8 +118,11 @@ public class UserController {
             if (user1 != null && user1.getId().equals(userRequestDto.getId())) {
                 user1 = null;
             } else if (user2 != null && user2.getId().equals(userRequestDto.getId())) {
+
                 user2 = null;
+
             }
+
             request.getSession().setAttribute("room", roomVO);
             request.getSession().setAttribute("roomList", roomService.findRoomsByUserId(userRequestDto.getId()));
             int code = roomVO.getRoom_code();
@@ -128,5 +131,6 @@ public class UserController {
             return code;
         }
         return 0;
+
     }
 }
