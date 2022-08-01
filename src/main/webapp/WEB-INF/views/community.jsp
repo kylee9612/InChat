@@ -1,3 +1,4 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: iiii4
@@ -21,17 +22,17 @@
                 <label class="no">번호</label>
                 <label class="writer">작성자</label>
                 <label class="title">제목</label>
-                <label class="createdAt">작성일</label>
-                <label class="viewCount">조회수</label>
+                <label class="createdAt" >작성일</label>
+                <label class="viewCount" >조회수</label>
             </li>
             <c:if test="${boardList.size() != 0}">
-                <c:forEach var="board" items="boardList" varStatus="status">
+                <c:forEach var="board" items="${boardList}" varStatus="status">
                     <li class = "board" onclick="location.href='/communityView?code=<c:out value="${board.getCode()}"/> '">
-                        <label class="no">${board.getCode()}</label>
-                        <label class="writer">${board.getWriter()}</label>
-                        <label class="title">${board.getTitle()}</label>
-                        <label class="createdAt">${board.getCreatedAt()}</label>
-                        <label class="viewCount">${board.getViewCount()}</label>
+                        <p class="no">${board.getCode()}</p>
+                        <p class = "writer">${board.getWriter()}</p>
+                        <p class="title">${board.getTitle()}</p>
+                        <p class="createdAt">${fn:substring(board.getCreatedAt(),0, 10)}</p>
+                        <p class="viewCount">${board.getViewCount()}</p>
                     </li>
                 </c:forEach>
             </c:if>

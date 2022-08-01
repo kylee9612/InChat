@@ -23,7 +23,7 @@ public class BoardController {
 
     @PostMapping("/v2/update-board")
     public boolean updateBoard(@RequestBody BoardDTO boardDTO) {
-        if (boardService.findBoardByCode(boardDTO) != null) {
+        if (boardService.findBoardByCode(boardDTO.getCode()) != null) {
             boardService.updateBoard(boardDTO);
             return true;
         }
@@ -33,6 +33,6 @@ public class BoardController {
     @PostMapping("/v2/get-board")
     public BoardVO getBoard(@RequestBody BoardDTO boardDTO) {
         boardService.updateViewCount(boardDTO);
-        return boardService.findBoardByCode(boardDTO);
+        return boardService.findBoardByCode(boardDTO.getCode());
     }
 }

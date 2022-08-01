@@ -7,11 +7,13 @@ import com.inchat.inchat.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.http.HttpRequest;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -63,19 +65,30 @@ public class MainController {
     public ModelAndView community(){
         ModelAndView mv = new ModelAndView("community");
         List<BoardVO> list = boardService.findAllBoardOrderByCode();
+        Collections.reverse(list);
         mv.addObject("boardList",list);
         System.out.println(mv);
-        System.out.println(list);
         return mv;
     }
 
     @RequestMapping("/communityWrite")
-    public ModelAndView communityWrite(){
-        return new ModelAndView("communityWrite");
+    public ModelAndView communityWrite(Model model){
+        ModelAndView mv = new ModelAndView("communityWrite");
+        if(model != null){
+            mv.addObject(model);
+        }
+        return mv;
     }
 
     @RequestMapping("/communityView")
-    public ModelAndView communityView(){
-        return new ModelAndView("communityView");
+    public ModelAndView communityView(HttpServletRequest request){
+        ModelAndView mv = new ModelAndView("communityView");
+        int boardNo = request.getParameter("code") == null ? 0 : Integer.parseInt(request.getParameter("code"));
+        if(boardNo!= 0) {
+            BoardVO boardVO = boardService.findBoardByCode(boardNo);
+            mv.addObject("board", boardVO);
+            return mv;
+        }
+        else return null;
     }
 }

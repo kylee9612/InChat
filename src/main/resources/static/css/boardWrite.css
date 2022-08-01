@@ -1,17 +1,12 @@
-form{
+.cons{
     margin-top: 4%;
     text-align: center;
 }
 
-form::placeholder{
+.cons::placeholder{
     color:gainsboro;
 }
-
-.title{
-    margin-top: 5%;
-}
-
-.contents{
+#contents{
     width: 600px;
     height: 60%;
     border-radius: 5px;
@@ -23,11 +18,11 @@ form::placeholder{
     resize: none;
 }
 
-.contents::placeholder{
+#contents::placeholder{
     color:gainsboro;
 }
 
-.submit_btn{
+#submit_btn{
     position: relative;
     left: 12%;
     width: 110px;
@@ -37,7 +32,7 @@ form::placeholder{
     transition: 0.5s;
 }
 
-.submit_btn:hover{
+#submit_btn:hover{
     background-color: rgba(207, 225, 255, 61%);
     transition: 0.5s;
 }

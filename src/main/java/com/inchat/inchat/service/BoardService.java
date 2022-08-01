@@ -20,8 +20,8 @@ public class BoardService {
         return repository.findAll(Sort.by("code"));
     }
 
-    public BoardVO findBoardByCode(BoardDTO boardDTO) {
-        Optional<BoardVO> result = repository.findById(boardDTO.getCode());
+    public BoardVO findBoardByCode(int code) {
+        Optional<BoardVO> result = repository.findById(code);
         return result.orElse(null);
     }
 
@@ -32,7 +32,7 @@ public class BoardService {
     }
 
     public void updateBoard(BoardDTO board) {
-        BoardVO boardVO = findBoardByCode(board);
+        BoardVO boardVO = findBoardByCode(board.getCode());
         boardVO = boardVO.update(board);
         if (boardVO != null)
             repository.save(boardVO);

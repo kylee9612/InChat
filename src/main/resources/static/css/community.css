@@ -14,12 +14,19 @@
 }
 
 .contents ul li{
+    display: flex;
     height: 40px;
+    margin-top: 15px;
     border-bottom: 1px solid rgba(134, 134, 134, 0.43);
+    text-align: center;
 }
 
 li label{
-    margin : 0 50px;
+    margin : 0 5px;
+}
+
+li p{
+    margin: 0 5px;
 }
 
 button{
@@ -39,4 +46,28 @@ button:hover{
     position: absolute;
     bottom : -5%;
     left : 62%;
+}
+
+.no{
+   width: 60px;
+}
+
+.writer{
+    width: 150px;
+}
+
+.title{
+    width: 300px;
+}
+
+.createdAt{
+    width: 120px;
+}
+
+.viewCount{
+    width: 80px;
+}
+
+.board{
+    cursor: pointer;
 }

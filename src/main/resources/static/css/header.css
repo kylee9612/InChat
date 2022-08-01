@@ -54,7 +54,12 @@ body {
     height: 79.4%;
 }
 
+textarea{
+    font-family: 'CookieRun-Regular', serif;
+}
+
 input[type="text"], input[type="password"]{
+    font-family: 'CookieRun-Regular', serif;
     width : 200px;
     height: 45px;
     border-radius: 5px;
@@ -65,6 +70,7 @@ input[type="text"], input[type="password"]{
     font-size: 14px;
 }
 input[type="text"]::placeholder, input[type="password"]::placeholder{
+    font-family: 'CookieRun-Regular', serif;
     font-weight: 200;
     font-size: 12px;
 }
