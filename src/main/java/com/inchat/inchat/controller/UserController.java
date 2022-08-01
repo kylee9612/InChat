@@ -103,8 +103,14 @@ public class UserController {
             } else if (user2 == null) {
                 user2 = userQueue.poll();
                 System.out.println(user2.getId() + " Waiting");
+<<<<<<< HEAD
                 roomVO = roomService.createChatRoomVO(user1.getId(), user2.getId());
                 System.out.println("Room made");
+=======
+                ChatRoomVO room = roomService.createChatRoomVO(user1.getId(), user2.getId());
+                request.getSession().setAttribute("room", room);
+                request.getSession().setAttribute("roomList", roomService.findRoomsByUserId(userRequestDto.getId()));
+>>>>>>> 0d43d48f036604fe5d324aca0a6cd82b4064858c
             }
             return true;
         } else
@@ -114,12 +120,23 @@ public class UserController {
     //  채팅방 생성
     @PostMapping("/v1/wait-queue")
     public int waitQueue(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request) {
+<<<<<<< HEAD
         if (roomVO != null) {
             if (user1 != null && user1.getId().equals(userRequestDto.getId())) {
                 user1 = null;
             } else if (user2 != null && user2.getId().equals(userRequestDto.getId())) {
+=======
+        ChatRoomVO room = null;
+        try {
+            if (user1 == null) {
+                room = roomService.findRoomByTwoId(userRequestDto.getId(), user2.getId());
+>>>>>>> 0d43d48f036604fe5d324aca0a6cd82b4064858c
                 user2 = null;
+            } else {
+                room = roomService.findRoomByTwoId(userRequestDto.getId(), user1.getId());
+                user1 = null;
             }
+<<<<<<< HEAD
             request.getSession().setAttribute("room", roomVO);
             request.getSession().setAttribute("roomList", roomService.findRoomsByUserId(userRequestDto.getId()));
             int code = roomVO.getRoom_code();
@@ -128,5 +145,41 @@ public class UserController {
             return code;
         }
         return 0;
+=======
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return room.getRoom_code();
+//
+//        if (user1 != null && user2 != null) {
+//            //  방이  이미 존재하는경우,
+//            //  중복해서 생성하지 않고, 해당 방으로 들어간다
+//            System.out.println("유저 둘다 찼다");
+//            ChatRoomVO room = roomService.findRoomByTwoId(user1.getId(), user2.getId());
+//            if (room == null) {
+//                System.out.println("방생성!");
+//                room = roomService.createChatRoomVO(user1.getId(), user2.getId());
+//                request.getSession().setAttribute("roomList",roomService.findRoomsByUserId(userRequestDto.getId()));
+//                user1 = null;
+//                user2 = null;
+//            }
+//            return room.getRoom_code();
+//        } else if (user1 == null && user2 == null) {
+//            //  두번쨰 큐에 있는 유저도 redirect 해주기 위함
+//            //  새로 생성 된 경우, ArrayList 의 맨 마지막에 있으므로,
+//            //  Collection.revert 메소드로 뒤집어준다
+//            //  가장 최신에 생성된 채팅방이 참가하고자하는 방이다.
+//            for (ChatRoomVO ro : roomService.findAllRooms()) {
+//                if (ro.getUser1_id().equals(userRequestDto.getId()) || ro.getUser2_id().equals(userRequestDto.getId())) {
+//                    request.getSession().setAttribute("room", ro);
+//                    request.getSession().setAttribute("chatList",chatService.findChatByRoomCode(ro.getRoom_code()));
+//                    return ro.getRoom_code();
+//                }
+//            }
+//            return 0;
+//        } else
+//            return 0;
+>>>>>>> 0d43d48f036604fe5d324aca0a6cd82b4064858c
     }
 }
