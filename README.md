@@ -1,16 +1,16 @@
 # InChat
 
 # 개발 환경
-@ JDK 11
-@ Spring-Boot-FrameWork
-@ IntelliJ
-@ Apache Tomcat 9.0.58
+- JDK 11
+- Spring-Boot-FrameWork
+- IntelliJ
+- Apache Tomcat 9.0.58
 
 # 사용 라이브러리
-@ JSTL
-@ JQuery (AJAX)
-@ WebSocket
-@ SockJS, STOMP
+- JSTL
+- JQuery (AJAX)
+- WebSocket
+- SockJS, STOMP
 
 1. 실시간 1:1 매칭 채팅 ( Queue 활용 ) -> WebSocket 
 2. 실시간 그룹채팅방
