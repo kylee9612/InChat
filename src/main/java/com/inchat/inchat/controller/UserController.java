@@ -10,12 +10,15 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.socket.WebSocketSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Set;
 
 @RestController
 @Log4j2
@@ -26,6 +29,9 @@ public class UserController {
     private RoomService roomService;
     @Autowired
     private ChatService chatService;
+
+    @Autowired
+    private ChatHandler chatHandler;
     private final Queue<UserVO> userQueue = new LinkedList<>();
 
     private UserVO user1;
@@ -89,9 +95,11 @@ public class UserController {
     @PostMapping("/v1/queue-addition")
     public boolean addQueue(@RequestBody UserRequestDto userRequestDto) {
         UserVO user = userService.readUser(userRequestDto);
-        userQueue.add(user);
-        System.out.println(user.getNickname() + " added in Queue / size : " + userQueue.size());
-        return true;
+        if(!userQueue.contains(user)) {
+            userQueue.add(user);
+            System.out.println(user.getNickname() + " added in Queue / size : " + userQueue.size());
+            return true;
+        }else return false;
     }
 
     @PostMapping("/v1/check-queue")
@@ -103,8 +111,11 @@ public class UserController {
             } else if (user2 == null) {
                 user2 = userQueue.poll();
                 System.out.println(user2.getId() + " Waiting");
-                roomVO = roomService.createChatRoomVO(user1.getId(), user2.getId());
-                System.out.println("Room made");
+                roomVO = roomService.findRoomByTwoId(user1.getId(), user2.getId());
+                if(roomVO == null) {
+                    roomVO = roomService.createChatRoomVO(user1.getId(), user2.getId());
+                    System.out.println("Room made");
+                }
             }
             return true;
         } else
@@ -113,14 +124,13 @@ public class UserController {
 
     //  채팅방 생성
     @PostMapping("/v1/wait-queue")
-    public int waitQueue(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request) {
+    public synchronized int waitQueue(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request) {
         if (roomVO != null) {
             if (user1 != null && user1.getId().equals(userRequestDto.getId())) {
                 user1 = null;
             } else if (user2 != null && user2.getId().equals(userRequestDto.getId())) {
                 user2 = null;
             }
-
             request.getSession().setAttribute("room", roomVO);
             request.getSession().setAttribute("roomList", roomService.findRoomsByUserId(userRequestDto.getId()));
             int code = roomVO.getRoom_code();
@@ -129,6 +139,10 @@ public class UserController {
             return code;
         }
         return 0;
+    }
 
+    @GetMapping("/v3/get-user-list")
+    public Set<String> session(){
+        return chatHandler.getUserSession();
     }
 }

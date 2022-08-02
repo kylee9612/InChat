@@ -12,7 +12,10 @@
     font-size : 18px;
     font-weight: 400;
     list-style: none;
-    padding : 25px 0;
+}
+
+.copyright span{
+    font-weight: 600;
 }
 
 .copy{

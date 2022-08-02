@@ -34,12 +34,13 @@
 
 .contents{
     display: flex;
-    flex-direction: column;
-    padding: 5% 20% 0 20%;
+    justify-content: center;
+    padding: 0 15% 0 25%;
     align-content: center;
     align-items: center;
     height: 85%;
-    overflow-y : scroll;
+    /*overflow-y : scroll;*/
+    margin: 2.5% 4% 0 0;
 }
 
 .contents p{
@@ -53,7 +54,7 @@
     width: 70px;
     height: 45px;
     border-radius: 15px;
-    border: 0px;
+    border: 0;
     background: #fbfbbc;
     transition: 0.5s;
     box-shadow: 1px 1px 1px #f33c3c;
@@ -78,4 +79,37 @@
 
 .alert p span{
     font-size: 12px;
+}
+
+#user_area{
+    width: 250px;
+    border: 1px solid #00ffff;
+    border-radius: 35px;
+    background-color: #ebf9ffad;
+    box-shadow: 2px 2px 1px 3px #80ff969c;
+    overflow: scroll;
+    margin: 0 10%;
+    height: 70%;
+}
+#user_list{
+    text-align: right;
+    list-style-type: none;
+}
+
+#user_area::-webkit-scrollbar{
+    width: 5px;
+}
+
+#user_area::-webkit-scrollbar-thumb{
+    background-color : darkgrey;
+    border-radius : 10px;
+    box-shadow : black;
+}
+#user_area::-webkit-scrollbar-track{
+    border-radius : 10px;
+}
+
+#user_list li{
+    margin-right: 10%;
+    padding: 5% 0;
 }

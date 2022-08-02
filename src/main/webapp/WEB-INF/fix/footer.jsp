@@ -12,14 +12,10 @@
 <div class = "footer_wrap">
     <ul class = "copyright">
         <li class="copy">Copyright@ 이인상</li>
-        <li>Notion : <a class="link" href="https://defiant-muscari-2c9.notion.site/771d105370174df6abc6a410bf44af23">https://defiant-muscari-2c9.notion.site/771d105370174df6abc6a410bf44af23</a></li>
-        <li>GIT : <a class="link" href="https://github.com/kylee9612/InChat.git">https://github.com/kylee9612/InChat.git</a></li>
+        <br>
+        <li><span>Notion </span>: <a class="link" href="https://defiant-muscari-2c9.notion.site/771d105370174df6abc6a410bf44af23">https://bit.ly/3PWB36o</a></li>
+        <li><span>GIT </span>: <a class="link" href="https://github.com/kylee9612/InChat.git">https://github.com/kylee9612/InChat.git</a></li>
     </ul>
 </div>
-<script>
-    if(location.href !== "http://localhost:8084/chatroom" && sock !== undefined && !sock.closed){
-        sock.close();
-    }
-</script>
 </body>
 </html>
