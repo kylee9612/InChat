@@ -18,3 +18,14 @@
 .copy{
     font-weight: 600;
 }
+
+.link{
+    text-decoration: none;
+    color: black;
+    transition: 0.5s;
+}
+
+.link:hover{
+    color : #2fa9ff;
+    transition: 0.5s;
+}

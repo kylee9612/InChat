@@ -54,7 +54,6 @@
         let data = msg.data;
         let target;
 
-
         /*  메세지 전송한 사람   */
         let sessionId = null;
 

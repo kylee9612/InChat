@@ -53,3 +53,9 @@
         </ul>
     </div>
 </div>
+<script>
+    if(location.href !== "/chatRoom" && sock !== null && !sock.closed){
+        sock.close();
+    }
+</script>
+

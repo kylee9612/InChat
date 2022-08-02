@@ -1,10 +1,3 @@
-
-function loginAction(user){
-    const uri = "/v1/login-user"
-    const redirect_uri = "/index"
-    sendAjax("Log In",user,uri,redirect_uri)
-}
-
 function joinAction(user){
     const uri = "/v1/add-user"
     const redirect_uri = "/index"
