@@ -34,11 +34,12 @@
 
 .contents{
     display: flex;
-    padding: 5% 15% 0 25%;
+    padding: 0 15% 0 25%;
     align-content: center;
     align-items: center;
     height: 85%;
     overflow-y : scroll;
+    margin: 2.5% 0;
 }
 
 .contents p{
