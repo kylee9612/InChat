@@ -16,5 +16,10 @@
         <li>GIT : <a class="link" href="https://github.com/kylee9612/InChat.git">https://github.com/kylee9612/InChat.git</a></li>
     </ul>
 </div>
+<script>
+    if(location.href !== "http://localhost:8084/chatroom" && sock !== undefined && !sock.closed){
+        sock.close();
+    }
+</script>
 </body>
 </html>

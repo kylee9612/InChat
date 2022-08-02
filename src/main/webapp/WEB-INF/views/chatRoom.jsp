@@ -29,7 +29,6 @@
 <script>
     const usernick = '${log.getNickname()}';
     let sock = new WebSocket('ws://localhost:8084/ws/chat');
-
     sock.onmessage = onMessage;
     sock.onclose = onClose;
     sock.onopen = onOpen;
@@ -56,7 +55,6 @@
 
         /*  메세지 전송한 사람   */
         let sessionId = null;
-
         let message = null;
 
         let arr = data.split(":")
