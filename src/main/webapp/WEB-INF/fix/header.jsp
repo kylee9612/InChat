@@ -14,9 +14,8 @@
     <meta property="og:description" content="실시간 그룹채팅과 일대일 채팅 및 커뮤니티 기능을 즐기세요!">
     <meta property="og:image" content="img/inchat.png">
 
-    <link rel="stylesheet" href="css/header.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <link rel="stylesheet" href="css/header.css">
     <title>InChat</title>
 </head>
 <body>
@@ -24,7 +23,7 @@
 <div class="header_wrap">
     <div class="container">
         <span>
-            <a class="logo" onclick="location.href = '/index'">InChat></a>
+            <a class="logo" onclick="movePage('/index')">InChat></a>
         </span>
         <ul class="gnb">
             <c:set var="log" value="${log}"/>
@@ -34,17 +33,17 @@
                 <li onclick="logOutAction()">
                     <span>Log Out</span>
                 </li>
-                <li onclick="location.href=`/mypage`">
+                <li onclick="movePage(`/mypage`)">
                     <span >My Page</span>
                 </li>
                 ' escapeXml="false"/>
                 </c:when>
                 <c:otherwise>
                     <c:out value='
-                <li onclick="location.href = `/login`">
+                <li onclick="movePage(`/login`)">
                     <span>Log In</span>
                 </li>
-                <li onclick="location.href = `/joinIn`">
+                <li onclick="movePage(`/joinIn`)">
                     <span>Join In</span>
                 </li>
                 ' escapeXml="false"/>
@@ -53,4 +52,18 @@
         </ul>
     </div>
 </div>
+<script>
+    let sock;
+
+    function movePage(uri){
+        try {
+            if (sock !== undefined) {
+                onClose();
+            }
+        }catch (error){
+            location.href=uri;
+        }
+        location.href=uri;
+    }
+</script>
 

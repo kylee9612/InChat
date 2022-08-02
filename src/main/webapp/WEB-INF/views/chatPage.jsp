@@ -44,6 +44,7 @@
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script>
     const url = new URL(location.href);
     const param = url.searchParams;
@@ -51,7 +52,7 @@
     let roomCode = param.get("room-code");
     let username = '${log.getNickname()}';
 
-    let sock = new SockJS("/stomp/chat");
+    sock = new SockJS("/stomp/chat");
     let stomp = Stomp.over(sock);
 
     function sendMessage() {
@@ -88,7 +89,6 @@
             str += "</div></div>";
             $("#text-input").append(str);
         })
-
         stomp.send('pub/chat/enter', {}, JSON.stringify(
             {room_code: roomCode, writer: username}));
     });

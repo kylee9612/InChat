@@ -16,7 +16,8 @@
     <div>
         <p id="loading">Loading</p>
     </div>
-</div>>
+</div>
+>
 <script>
     const loading = $("#loading");
     const user = {
@@ -43,8 +44,8 @@
         } else if (timer === 3) {
             loading.html("Loading");
             timer = 0;
-            queueWork();
         }
+        queueWork();
     }, 1000);
 
 </script>

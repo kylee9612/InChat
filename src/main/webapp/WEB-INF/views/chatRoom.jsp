@@ -17,33 +17,67 @@
     <div class="contents">
         <div id="text-area">
             <div id="text-input">
-
             </div>
             <div id="input_area">
                 <input type="text" id="msg" placeholder="Type a message..." required>
                 <button type="submit" class="btn" id="button_send" onclick="sendMessage()">전송</button>
             </div>
         </div>
+        <div id="user_area">
+            <ul id="user_list"></ul>
+        </div>
     </div>
 </div>
 <script>
     const usernick = '${log.getNickname()}';
-    let sock = new WebSocket('ws://localhost:8084/ws/chat');
+    const userList = $("#user_list");
+    sock = new WebSocket('ws://localhost:8084/ws/chat');
+    sock.onopen = onOpen;
     sock.onmessage = onMessage;
     sock.onclose = onClose;
-    sock.onopen = onOpen;
 
-    document.addEventListener("keydown",event=>{
-        if(event.keyCode===13){
+    document.addEventListener("keydown", event => {
+        if (event.keyCode === 13) {
             sendMessage();
         }
     })
 
+    sock.onerror = function () {
+        alert("error");
+    };
+
+    function onClose(event) {
+        let str = usernick + ":님이 퇴장했습니다";
+        console.log(str);
+        sock.send(str);
+    }
+
+    function onOpen(event) {
+        let str = usernick + ":님이 입장했습니다";
+        sock.send(str);
+        jQuery.ajax({
+            type: "GET",
+            url: "/v3/get-user-list",
+            contentType: "JSON",
+            success: function (e) {
+                console.log(e);
+                // let temp = JSON.stringify(e).substring(3,this.length-2).split(`","`);
+                for(let i = 0; i < e.length; i++){
+                    if(e[i]!==usernick){
+                        userList.append("<li>"+e[i]+"</li>");
+                    }
+                }
+            },
+            error : function (e){
+
+            }
+        })
+    }
 
     function sendMessage() {
         let msg = document.getElementById("msg");
         console.log(usernick + ":" + msg.value);
-        if(msg.value !== '') {
+        if (msg.value !== '') {
             sock.send(usernick + ":" + msg.value);
             msg.value = '';
         }
@@ -56,10 +90,22 @@
         /*  메세지 전송한 사람   */
         let sessionId = null;
         let message = null;
-
+        let userListStr;
         let arr = data.split(":")
         for (let i = 0; i < arr.length; i++) {
             console.log('arr[' + i + "] : " + arr[i]);
+        }
+        if (arr[1] === "님이 입장했습니다") {
+            userListStr = "<li>" + arr[0] + "</li>";
+            userList.append(userListStr);
+        } else if (arr[1] === "님이 퇴장했습니다") {
+            let delstr = "<li>" + arr[0] + "</li>";
+            let userListBody = document.getElementById("user_list").innerHTML.valueOf().split(delstr);
+            let finalStr = userListBody[0];
+            if (userListBody[1] !== undefined) {
+                finalStr += userListBody[1];
+            }
+            document.getElementById("user_list").innerHTML = finalStr;
         }
 
         let cur_session = '${log.getNickname()}';
@@ -73,7 +119,7 @@
         if (sessionId === cur_session) {
             target = "first";
         } else {
-            target = "secondary;"
+            target = "secondary";
         }
         let str = "<div class='alert " + target + "'>";
         str += "<p>" + sessionId + " : " + message + "</p>";
@@ -82,15 +128,11 @@
         $("#text-input").append(str);
     }
 
-    function onClose(event) {
-        let str = usernick + ":님이 퇴장했습니다";
-        console.log(str);
-        sock.send(str);
-    }
+    // document.body.addEventListener('beforeunload', function (){
+    //     if(confirm("Do you want to close the chat?")){
+    //         sock.close();
+    //     }
+    // });
 
-    function onOpen(event) {
-        let str = usernick + ":님이 입장했습니다";
-        sock.send(str);
-    }
 </script>
 <%@ include file="../fix/footer.jsp" %>

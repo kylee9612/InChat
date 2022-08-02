@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Log4j2
 @Component
@@ -31,6 +32,12 @@ public class ChatHandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception{
         String payload = message.getPayload();
+        String[] temp = payload.split(":");
+        if(temp[1].equals("님이 입장했습니다")){
+            userSession.put(temp[0],session);
+        }else if(temp[1].equals("님이 퇴장했습니다")){
+            userSession.remove(temp[0]);
+        }
         log.info("payload : "+payload);
         for(WebSocketSession s : sessionArrayList){
             s.sendMessage(message);
@@ -42,11 +49,9 @@ public class ChatHandler extends TextWebSocketHandler {
         log.info(session + "클라이언트 접속 해제");
         System.out.println(session + "클라이언트 접속 해제");
         sessionArrayList.remove(session);
-        session.close();
     }
 
-    @GetMapping("/v3/get-user-list")
-    public ArrayList<WebSocketSession> session(){
-        return sessionArrayList;
+    public Set<String> getUserSession(){
+        return userSession.keySet();
     }
 }

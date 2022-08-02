@@ -12,7 +12,7 @@ public class RoomService {
 
     @Autowired
     private RoomRepository repository;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public List<ChatRoomVO> findAllRooms() {
         List<ChatRoomVO> result = repository.findAll();
