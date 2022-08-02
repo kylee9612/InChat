@@ -14,6 +14,10 @@
     list-style: none;
 }
 
+.copyright span{
+    font-weight: 600;
+}
+
 .copy{
     font-weight: 600;
 }
