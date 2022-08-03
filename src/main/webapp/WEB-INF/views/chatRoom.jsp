@@ -31,7 +31,7 @@
 <script>
     const usernick = '${log.getNickname()}';
     const userList = $("#user_list");
-    sock = new WebSocket('ws://localhost:8084/ws/chat');
+    sock = new WebSocket('ws://localhost:8080/ws/chat');
     sock.onopen = onOpen;
     sock.onmessage = onMessage;
     sock.onclose = onClose;

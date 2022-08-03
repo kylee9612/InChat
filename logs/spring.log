@@ -5450,3 +5450,131 @@ Caused by: org.hibernate.HibernateException: Access to DialectResolutionInfo can
 09:45:41.132+0900 [http-nio-8084-exec-6] INFO  com.inchat.inchat.controller.ChatHandler - StandardWebSocketSession[id=aa3aeeb0-15b6-9ff7-dfec-2c700d057af9, uri=ws://localhost:8084/ws/chat]클라이언트 접속
 09:45:41.134+0900 [http-nio-8084-exec-8] INFO  com.inchat.inchat.controller.ChatHandler - payload : PassWord:님이 입장했습니다
 09:46:25.496+0900 [MessageBroker-1] INFO  org.springframework.web.socket.config.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+09:48:01.064+0900 [SpringApplicationShutdownHook] INFO  org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Stopping...
+09:48:01.064+0900 [SpringApplicationShutdownHook] INFO  org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@52a9db63]]
+09:48:01.064+0900 [SpringApplicationShutdownHook] INFO  org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Stopped.
+09:48:01.249+0900 [SpringApplicationShutdownHook] INFO  com.inchat.inchat.controller.ChatHandler - StandardWebSocketSession[id=aa3aeeb0-15b6-9ff7-dfec-2c700d057af9, uri=ws://localhost:8084/ws/chat]클라이언트 접속 해제
+09:48:01.249+0900 [SpringApplicationShutdownHook] INFO  com.inchat.inchat.controller.ChatHandler - StandardWebSocketSession[id=9fed15e2-c096-bdf1-14bd-43207f728ac3, uri=ws://localhost:8084/ws/chat]클라이언트 접속 해제
+09:48:01.255+0900 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+09:48:01.256+0900 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+09:48:01.309+0900 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+09:48:04.689+0900 [main] INFO  com.inchat.inchat.InChatApplication - Starting InChatApplication using Java 11.0.15 on DESKTOP-FJ02CPB with PID 16220 (C:\Users\iiii4\git\workspace_spring\InChat\build\classes\java\main started by iiii4 in C:\Users\iiii4\git\workspace_spring\InChat)
+09:48:04.694+0900 [main] INFO  com.inchat.inchat.InChatApplication - No active profile set, falling back to 1 default profile: "default"
+09:48:05.081+0900 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+09:48:05.118+0900 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 4 JPA repository interfaces.
+09:48:05.407+0900 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+09:48:05.417+0900 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+09:48:05.418+0900 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+09:48:05.418+0900 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.65]
+09:48:05.595+0900 [main] INFO  org.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+09:48:05.603+0900 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+09:48:05.603+0900 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 884 ms
+09:48:05.682+0900 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+09:48:05.711+0900 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.10.Final
+09:48:05.801+0900 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+09:48:05.862+0900 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+09:48:06.073+0900 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+09:48:06.086+0900 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+09:48:06.441+0900 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+09:48:06.447+0900 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+09:48:06.779+0900 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+09:48:06.857+0900 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+09:48:06.946+0900 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+09:48:06.950+0900 [main] WARN  org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+09:48:06.952+0900 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+09:48:06.953+0900 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+09:48:07.000+0900 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+09:48:07.001+0900 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+09:48:07.002+0900 [main] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+09:48:07.004+0900 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+09:48:07.005+0900 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+09:48:07.009+0900 [main] INFO  org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+09:48:07.025+0900 [main] ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+09:48:41.365+0900 [main] INFO  com.inchat.inchat.InChatApplication - Starting InChatApplication using Java 11.0.15 on DESKTOP-FJ02CPB with PID 25176 (C:\Users\iiii4\git\workspace_spring\InChat\build\classes\java\main started by iiii4 in C:\Users\iiii4\git\workspace_spring\InChat)
+09:48:41.371+0900 [main] INFO  com.inchat.inchat.InChatApplication - No active profile set, falling back to 1 default profile: "default"
+09:48:41.753+0900 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+09:48:41.793+0900 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 35 ms. Found 4 JPA repository interfaces.
+09:48:42.076+0900 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+09:48:42.085+0900 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+09:48:42.086+0900 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+09:48:42.086+0900 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.65]
+09:48:42.264+0900 [main] INFO  org.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+09:48:42.272+0900 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+09:48:42.273+0900 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 878 ms
+09:48:42.350+0900 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+09:48:42.378+0900 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.10.Final
+09:48:42.463+0900 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+09:48:42.523+0900 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+09:48:42.746+0900 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+09:48:42.758+0900 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+09:48:43.119+0900 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+09:48:43.124+0900 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+09:48:43.452+0900 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+09:48:43.526+0900 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+09:48:43.610+0900 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+09:48:43.624+0900 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+09:48:43.626+0900 [main] INFO  org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Starting...
+09:48:43.626+0900 [main] INFO  org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@52a9db63]]
+09:48:43.626+0900 [main] INFO  org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Started.
+09:48:43.630+0900 [main] INFO  com.inchat.inchat.InChatApplication - Started InChatApplication in 2.475 seconds (JVM running for 3.265)
+09:48:46.310+0900 [http-nio-8080-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+09:48:46.310+0900 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+09:48:46.311+0900 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+09:48:46.823+0900 [http-nio-8080-exec-1] WARN  org.apache.catalina.util.SessionIdGeneratorBase - Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [190] milliseconds.
+09:49:43.447+0900 [MessageBroker-1] INFO  org.springframework.web.socket.config.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+09:49:54.734+0900 [SpringApplicationShutdownHook] INFO  org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Stopping...
+09:49:54.735+0900 [SpringApplicationShutdownHook] INFO  org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@52a9db63]]
+09:49:54.735+0900 [SpringApplicationShutdownHook] INFO  org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Stopped.
+09:49:54.932+0900 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+09:49:54.933+0900 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+09:49:54.984+0900 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+09:49:57.658+0900 [main] INFO  com.inchat.inchat.InChatApplication - Starting InChatApplication using Java 11.0.15 on DESKTOP-FJ02CPB with PID 16692 (C:\Users\iiii4\git\workspace_spring\InChat\build\classes\java\main started by iiii4 in C:\Users\iiii4\git\workspace_spring\InChat)
+09:49:57.663+0900 [main] INFO  com.inchat.inchat.InChatApplication - No active profile set, falling back to 1 default profile: "default"
+09:49:58.032+0900 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+09:49:58.067+0900 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 4 JPA repository interfaces.
+09:49:58.350+0900 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+09:49:58.360+0900 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+09:49:58.361+0900 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+09:49:58.361+0900 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.65]
+09:49:58.526+0900 [main] INFO  org.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+09:49:58.534+0900 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+09:49:58.534+0900 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 849 ms
+09:49:58.605+0900 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+09:49:58.632+0900 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.10.Final
+09:49:58.714+0900 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+09:49:58.771+0900 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+09:49:59.006+0900 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+09:49:59.018+0900 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+09:49:59.401+0900 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+09:49:59.407+0900 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+09:49:59.784+0900 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+09:49:59.878+0900 [main] INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+09:49:59.964+0900 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+09:49:59.978+0900 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+09:49:59.979+0900 [main] INFO  org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Starting...
+09:49:59.980+0900 [main] INFO  org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@52a9db63]]
+09:49:59.980+0900 [main] INFO  org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Started.
+09:49:59.984+0900 [main] INFO  com.inchat.inchat.InChatApplication - Started InChatApplication in 2.535 seconds (JVM running for 3.294)
+09:50:00.522+0900 [http-nio-8080-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+09:50:00.523+0900 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+09:50:00.523+0900 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+09:50:01.045+0900 [http-nio-8080-exec-1] WARN  org.apache.catalina.util.SessionIdGeneratorBase - Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [188] milliseconds.
+09:50:06.123+0900 [http-nio-8080-exec-7] INFO  com.inchat.inchat.controller.ChatHandler - StandardWebSocketSession[id=1d21d7d3-d3de-8520-ad1f-38d65704d718, uri=ws://localhost:8080/ws/chat]클라이언트 접속
+09:50:06.125+0900 [http-nio-8080-exec-7] INFO  com.inchat.inchat.controller.ChatHandler - payload : WaterMelon:님이 입장했습니다
+09:50:12.509+0900 [http-nio-8080-exec-5] INFO  com.inchat.inchat.controller.ChatHandler - StandardWebSocketSession[id=f5e14dbe-12b6-a0d1-23a6-a78f79901863, uri=ws://localhost:8080/ws/chat]클라이언트 접속
+09:50:12.512+0900 [http-nio-8080-exec-6] INFO  com.inchat.inchat.controller.ChatHandler - payload : PassWord:님이 입장했습니다
