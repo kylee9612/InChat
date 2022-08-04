@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ChatRepository extends JpaRepository<ChatMessageDTO, Integer> {
     @Modifying
-    @Query(value = "update ChatMessageDTO c set c.writer = :newNick where c.writer = :origin")
+    @Query(value = "update ChatMessageDTO c set " +
+            "c.writer = :newNick where c.writer = :origin")
     public void updateUserNick(String origin, String newNick);
 }
