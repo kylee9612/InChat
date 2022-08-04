@@ -9,7 +9,7 @@
 <%@ include file="../fix/header.jsp" %>
 <c:choose>
     <c:when test="${log==null}">
-        <c:redirect url="/index"/>
+        <c:redirect url="/login"/>
     </c:when>
 </c:choose>
 <div class="wrap">
