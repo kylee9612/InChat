@@ -40,6 +40,9 @@
         if (event.keyCode === 13) {
             sendMessage();
         }
+        else if(event.keyCode === 116){
+            onClose();
+        }
     })
 
     sock.onerror = function () {
@@ -100,8 +103,12 @@
             console.log('arr[' + i + "] : " + arr[i]);
         }
         if (arr[1] === "님이 입장했습니다") {
+            // refreshUserList();
             userListStr = "<li>" + arr[0] + "</li>";
-            userList.append(userListStr);
+            console.log(userList.val().includes(userListStr))
+            if(!userList.val().includes(userListStr)) {
+                userList.append(userListStr);
+            }
         } else if (arr[1] === "님이 퇴장했습니다") {
             let delstr = "<li>" + arr[0] + "</li>";
             let userListBody = document.getElementById("user_list").innerHTML.valueOf().split(delstr);

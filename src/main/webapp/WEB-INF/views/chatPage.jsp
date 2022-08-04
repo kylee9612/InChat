@@ -71,6 +71,7 @@
     stomp.connect({}, function () {
         stomp.subscribe("/sub/chat/rooms/" + roomCode, function (chat) {
             let content = JSON.parse(chat.body);
+            let textArea = $("#text-input");
             console.log(chat);
 
             let writer = content.writer;
@@ -87,7 +88,8 @@
             str += "<p>" + writer + " : " + message + "<br><span>" + curtime;
             str +="</span></p>";
             str += "</div></div>";
-            $("#text-input").append(str);
+            textArea.append(str);
+            textArea.scrollTop = textArea.scrollHeight;
         })
         stomp.send('pub/chat/enter', {}, JSON.stringify(
             {room_code: roomCode, writer: username}));
