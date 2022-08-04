@@ -3,11 +3,13 @@ package com.inchat.inchat.controller;
 import com.inchat.inchat.domain.ChatRoomVO;
 import com.inchat.inchat.domain.UserRequestDto;
 import com.inchat.inchat.domain.UserVO;
+import com.inchat.inchat.repository.ChatRepository;
 import com.inchat.inchat.service.ChatService;
 import com.inchat.inchat.service.RoomService;
 import com.inchat.inchat.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.WebSocketSession;
@@ -29,6 +31,9 @@ public class UserController {
     private RoomService roomService;
     @Autowired
     private ChatService chatService;
+
+    @Autowired
+    private ChatRepository chatRepository;
 
     @Autowired
     private ChatHandler chatHandler;
@@ -84,10 +89,13 @@ public class UserController {
         request.getSession().setAttribute("log", null);
         return null;
     }
-
+    @Transactional
     @PostMapping("/v1/update-user")
     public UserVO updateUser(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request, HttpServletResponse response) {
-        UserVO user = userService.updateUser(userRequestDto);
+        UserVO user = userService.readUser(userRequestDto);
+        String oldNick = user.getNickname();
+        user = userService.updateUser(userRequestDto);
+        chatRepository.updateUserNick(oldNick,user.getNickname());
         request.getSession().setAttribute("log", user);
         return user;
     }
@@ -95,11 +103,11 @@ public class UserController {
     @PostMapping("/v1/queue-addition")
     public boolean addQueue(@RequestBody UserRequestDto userRequestDto) {
         UserVO user = userService.readUser(userRequestDto);
-        if(!userQueue.contains(user)) {
+        if (!userQueue.contains(user)) {
             userQueue.add(user);
-            System.out.println(user.getNickname() + " added in Queue / size : " + userQueue.size());
+            System.out.println(user.getNickname() + " added in Queue\nQueue size : " + userQueue.size());
             return true;
-        }else return false;
+        } else return false;
     }
 
     @PostMapping("/v1/check-queue")
@@ -112,7 +120,7 @@ public class UserController {
                 user2 = userQueue.poll();
                 System.out.println(user2.getId() + " Waiting");
                 roomVO = roomService.findRoomByTwoId(user1.getId(), user2.getId());
-                if(roomVO == null) {
+                if (roomVO == null) {
                     roomVO = roomService.createChatRoomVO(user1.getId(), user2.getId());
                     System.out.println("Room made");
                 }
@@ -125,6 +133,8 @@ public class UserController {
     //  채팅방 생성
     @PostMapping("/v1/wait-queue")
     public synchronized int waitQueue(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request) {
+        if (user1 != null && user2 != null && user1.getId().equals(user2.getId()))
+            user2 = null;
         if (roomVO != null) {
             if (user1 != null && user1.getId().equals(userRequestDto.getId())) {
                 user1 = null;
@@ -134,15 +144,20 @@ public class UserController {
             request.getSession().setAttribute("room", roomVO);
             request.getSession().setAttribute("roomList", roomService.findRoomsByUserId(userRequestDto.getId()));
             int code = roomVO.getRoom_code();
-            if (user1 == null && user2 == null)
+            System.out.println("User 1: " + user1);
+            System.out.println("User 2: " + user2);
+            if (user1 == null && user2 == null) {
+                System.out.println(roomVO);
                 roomVO = null;
+                System.out.println("Queue Size : "+userQueue.size());
+            }
             return code;
         }
         return 0;
     }
 
     @GetMapping("/v3/get-user-list")
-    public Set<String> session(){
+    public Set<String> session() {
         return chatHandler.getUserSession();
     }
 }

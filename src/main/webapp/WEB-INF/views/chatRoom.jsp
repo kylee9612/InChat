@@ -31,7 +31,7 @@
 <script>
     const usernick = '${log.getNickname()}';
     const userList = $("#user_list");
-    sock = new WebSocket('ws://localhost:8084/ws/chat');
+    sock = new WebSocket('ws://localhost:8080/ws/chat');
     sock.onopen = onOpen;
     sock.onmessage = onMessage;
     sock.onclose = onClose;
@@ -55,6 +55,10 @@
     function onOpen(event) {
         let str = usernick + ":님이 입장했습니다";
         sock.send(str);
+        refreshUserList();
+    }
+
+    function refreshUserList(){
         jQuery.ajax({
             type: "GET",
             url: "/v3/get-user-list",
@@ -127,12 +131,6 @@
 
         $("#text-input").append(str);
     }
-
-    // document.body.addEventListener('beforeunload', function (){
-    //     if(confirm("Do you want to close the chat?")){
-    //         sock.close();
-    //     }
-    // });
 
 </script>
 <%@ include file="../fix/footer.jsp" %>
