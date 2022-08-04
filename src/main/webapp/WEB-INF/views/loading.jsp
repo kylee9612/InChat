@@ -48,5 +48,21 @@
         queueWork();
     }, 1000);
 
+    document.addEventListener("keydown", event => {
+        if(event.keyCode === 116){
+            delQueue();
+        }
+    })
+
+    function delQueue(){
+        jQuery.ajax({
+            type: "POST",
+            url: "/v1/delete-queue",
+            contentType: 'application/json',
+            data: JSON.stringify(user),
+            dataType: "JSON",
+        });
+    }
+
 </script>
 <%@ include file="../fix/footer.jsp" %>

@@ -39,7 +39,7 @@
     text-align: center;
 }
 
-#error_box{
+#error_box, #invalid_nick{
     color : red;
 }
 

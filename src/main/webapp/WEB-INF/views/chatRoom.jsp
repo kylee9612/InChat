@@ -99,7 +99,7 @@
 
         /*  메세지 전송한 사람   */
         let sessionId = null;
-        let message = null;
+        let message = "";
         let userListStr;
         let arr = data.split(":")
         for (let i = 0; i < arr.length; i++) {
@@ -125,7 +125,11 @@
         let cur_session = '${log.getNickname()}';
 
         sessionId = arr[0];
-        message = arr[1];
+        for(let i = 1 ; i < arr.length; i++){
+            message += arr[i];
+            if(i+1 < arr.length)
+                message += ":";
+        }
 
         console.log("sessionID : " + sessionId);
         console.log("cur_session : " + cur_session);

@@ -60,6 +60,9 @@
             if (sock !== undefined) {
                 onClose();
             }
+            if(location.href === "/loading"){
+                delQueue();
+            }
         }catch (error){
             location.href=uri;
         }

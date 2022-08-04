@@ -1,3 +1,5 @@
+const regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+
 function joinAction(user){
     const uri = "/v1/add-user"
     const redirect_uri = "/index"
