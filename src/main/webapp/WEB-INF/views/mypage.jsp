@@ -30,6 +30,7 @@
             <input id="pw_input" type="password" placeholder="pw"><br>
             <input id="nick_input" type="text" placeholder="nickname"
                    value="<c:out value = '${log.getNickname()}'/>"><br>
+            <span id="invalid_nick"></span>
             <button id="submit_box" onclick="updateEvent()">제출</button>
         </form>
     </div>
@@ -37,6 +38,8 @@
 <script>
     const container = $("#contents")
     const page = '<c:out value="${var}"/>';
+    const invalidNick = $("#invalid_nick");
+
     if (page === 'info') {
         myPage();
     } else if (page === 'delete') {
@@ -49,7 +52,14 @@
             "pw": $("#pw_input").val(),
             "nickname": $("#nick_input").val()
         }
-        updateAction(user);
+        if(regExp.test(user.nickname)){
+            alert("Check your nickname");
+            invalidNick.html("Invalid Nickname<br>");
+        }
+        else {
+            invalidNick.html("");
+            updateAction(user);
+        }
     }
 
     function deleteCheck() {

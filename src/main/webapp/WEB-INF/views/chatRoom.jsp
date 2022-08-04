@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/chatroom.css">
 </head>
 <c:if test="${log==null}">
-    <c:redirect url="/index"/>
+    <c:redirect url="/login"/>
 </c:if>
 <div class="wrap">
     <div class="contents">
@@ -31,7 +31,10 @@
 <script>
     const usernick = '${log.getNickname()}';
     const userList = $("#user_list");
-    sock = new WebSocket('ws://localhost:8080/ws/chat');
+    const textArea = $("#text-input");
+    const text_input = document.querySelector("#text-input");
+
+    sock = new WebSocket('ws://in-chat.online:8080/ws/chat');
     sock.onopen = onOpen;
     sock.onmessage = onMessage;
     sock.onclose = onClose;
@@ -39,6 +42,8 @@
     document.addEventListener("keydown", event => {
         if (event.keyCode === 13) {
             sendMessage();
+        } else if (event.keyCode === 116) {
+            onClose();
         }
     })
 
@@ -55,10 +60,10 @@
     function onOpen(event) {
         let str = usernick + ":님이 입장했습니다";
         sock.send(str);
-        refreshUserList();
     }
 
-    function refreshUserList(){
+    function refreshUserList() {
+        userList.html("");
         jQuery.ajax({
             type: "GET",
             url: "/v3/get-user-list",
@@ -66,13 +71,12 @@
             success: function (e) {
                 console.log(e);
                 // let temp = JSON.stringify(e).substring(3,this.length-2).split(`","`);
-                for(let i = 0; i < e.length; i++){
-                    if(e[i]!==usernick){
-                        userList.append("<li>"+e[i]+"</li>");
-                    }
+                for (let i = 0; i < e.length; i++) {
+                    userList.append("<li>" + e[i] + "</li>");
+
                 }
             },
-            error : function (e){
+            error: function (e) {
 
             }
         })
@@ -93,29 +97,24 @@
 
         /*  메세지 전송한 사람   */
         let sessionId = null;
-        let message = null;
+        let message = "";
         let userListStr;
         let arr = data.split(":")
         for (let i = 0; i < arr.length; i++) {
             console.log('arr[' + i + "] : " + arr[i]);
         }
-        if (arr[1] === "님이 입장했습니다") {
-            userListStr = "<li>" + arr[0] + "</li>";
-            userList.append(userListStr);
-        } else if (arr[1] === "님이 퇴장했습니다") {
-            let delstr = "<li>" + arr[0] + "</li>";
-            let userListBody = document.getElementById("user_list").innerHTML.valueOf().split(delstr);
-            let finalStr = userListBody[0];
-            if (userListBody[1] !== undefined) {
-                finalStr += userListBody[1];
-            }
-            document.getElementById("user_list").innerHTML = finalStr;
+        if (arr[1] === "님이 입장했습니다" || arr[1] === "님이 퇴장했습니다"){
+            refreshUserList();
         }
 
         let cur_session = '${log.getNickname()}';
 
         sessionId = arr[0];
-        message = arr[1];
+        for (let i = 1; i < arr.length; i++) {
+            message += arr[i];
+            if (i + 1 < arr.length)
+                message += ":";
+        }
 
         console.log("sessionID : " + sessionId);
         console.log("cur_session : " + cur_session);
@@ -128,8 +127,8 @@
         let str = "<div class='alert " + target + "'>";
         str += "<p>" + sessionId + " : " + message + "</p>";
         str += "</div></div>";
-
-        $("#text-input").append(str);
+        textArea.append(str);
+        text_input.scrollTop = text_input.scrollHeight;
     }
 
 </script>

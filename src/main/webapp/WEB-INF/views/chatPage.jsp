@@ -6,11 +6,11 @@
 </head>
 <%
     if (request.getParameter("room-code") == null) {
-        response.sendRedirect("/index");
+        response.sendRedirect("/login");
     }
 %>
 <c:if test="${log==null}">
-    <c:redirect url="/index"/>
+    <c:redirect url="/login"/>
 </c:if>
 <div class="wrap">
     <div class="contents">
@@ -48,6 +48,8 @@
 <script>
     const url = new URL(location.href);
     const param = url.searchParams;
+    const textArea = $("#text-input");
+    const text_input = document.querySelector("#text-input");
 
     let roomCode = param.get("room-code");
     let username = '${log.getNickname()}';
@@ -87,7 +89,8 @@
             str += "<p>" + writer + " : " + message + "<br><span>" + curtime;
             str +="</span></p>";
             str += "</div></div>";
-            $("#text-input").append(str);
+            textArea.append(str);
+            text_input.scrollTop = text_input.scrollHeight;
         })
         stomp.send('pub/chat/enter', {}, JSON.stringify(
             {room_code: roomCode, writer: username}));

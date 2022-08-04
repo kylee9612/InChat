@@ -3,6 +3,7 @@ package com.inchat.inchat.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Getter
 @Table(name="room")
+@ToString
 public class ChatRoomVO{
     @Id
     private int room_code;

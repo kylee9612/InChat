@@ -13,8 +13,8 @@
     <ul class = "copyright">
         <li class="copy">Copyright@ 이인상</li>
         <br>
-        <li><span>Notion </span>: <a class="link" href="https://defiant-muscari-2c9.notion.site/771d105370174df6abc6a410bf44af23">https://bit.ly/3PWB36o</a></li>
-        <li><span>GIT </span>: <a class="link" href="https://github.com/kylee9612/InChat.git">https://github.com/kylee9612/InChat.git</a></li>
+        <li><span>Notion </span>: <a class="link" onclick='movePage("https://defiant-muscari-2c9.notion.site/771d105370174df6abc6a410bf44af23")'>https://bit.ly/3PWB36o</a></li>
+        <li><span>GIT </span>: <a class="link" onclick='movePage("https://github.com/kylee9612/InChat.git")'>https://github.com/kylee9612/InChat.git</a></li>
     </ul>
 </div>
 </body>

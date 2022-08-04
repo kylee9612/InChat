@@ -17,10 +17,7 @@ import org.springframework.web.socket.WebSocketSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @Log4j2
@@ -89,13 +86,14 @@ public class UserController {
         request.getSession().setAttribute("log", null);
         return null;
     }
+
     @Transactional
     @PostMapping("/v1/update-user")
     public UserVO updateUser(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request, HttpServletResponse response) {
         UserVO user = userService.readUser(userRequestDto);
         String oldNick = user.getNickname();
         user = userService.updateUser(userRequestDto);
-        chatRepository.updateUserNick(oldNick,user.getNickname());
+        chatRepository.updateUserNick(oldNick, user.getNickname());
         request.getSession().setAttribute("log", user);
         return user;
     }
@@ -103,15 +101,20 @@ public class UserController {
     @PostMapping("/v1/queue-addition")
     public boolean addQueue(@RequestBody UserRequestDto userRequestDto) {
         UserVO user = userService.readUser(userRequestDto);
-        if (!userQueue.contains(user)) {
-            userQueue.add(user);
-            System.out.println(user.getNickname() + " added in Queue\nQueue size : " + userQueue.size());
-            return true;
-        } else return false;
+        for (UserVO userVO : userQueue) {
+            if (userVO.getId().equals(user.getId())) {
+                return false;
+            }
+        }
+        if (user1 != null && user.getId().equals(user1.getId()) || user2 != null && user.getId().equals(user2.getId()))
+            return false;
+        userQueue.add(user);
+        System.out.println(user.getNickname() + " added in Queue\nQueue size : " + userQueue.size());
+        return true;
     }
 
     @PostMapping("/v1/check-queue")
-    public boolean checkQueue(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request) {
+    public synchronized boolean checkQueue(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request) {
         if (userQueue.peek() != null && userQueue.peek().getId().equals(userRequestDto.getId())) {
             if (user1 == null) {
                 user1 = userQueue.poll();
@@ -120,7 +123,7 @@ public class UserController {
                 user2 = userQueue.poll();
                 System.out.println(user2.getId() + " Waiting");
                 roomVO = roomService.findRoomByTwoId(user1.getId(), user2.getId());
-                if (roomVO == null) {
+                if (roomVO == null && user1 != null) {
                     roomVO = roomService.createChatRoomVO(user1.getId(), user2.getId());
                     System.out.println("Room made");
                 }
@@ -130,12 +133,32 @@ public class UserController {
             return false;
     }
 
+    @PostMapping("/v1/delete-queue")
+    public boolean deleteQueue(@RequestBody UserRequestDto userRequestDto) {
+        UserVO userVO = userService.readUser(userRequestDto);
+        if (user1 != null && userVO.getId().equals(user1.getId())) {
+            user1 = null;
+            System.out.println("user1 check 부분");
+        } else if (user2 != null && userVO.getId().equals(user2.getId())) {
+            user2 = null;
+            System.out.println("user1 check 부분");
+        }
+        for (UserVO vo : userQueue) {
+            if (vo.getId().equals(userVO.getId())) {
+                userQueue.remove(vo);
+                return true;
+            }
+        }
+        return false;
+    }
+
     //  채팅방 생성
     @PostMapping("/v1/wait-queue")
     public synchronized int waitQueue(@RequestBody UserRequestDto userRequestDto, HttpServletRequest request) {
         if (user1 != null && user2 != null && user1.getId().equals(user2.getId()))
             user2 = null;
         if (roomVO != null) {
+            System.out.println(roomVO);
             if (user1 != null && user1.getId().equals(userRequestDto.getId())) {
                 user1 = null;
             } else if (user2 != null && user2.getId().equals(userRequestDto.getId())) {
@@ -147,9 +170,8 @@ public class UserController {
             System.out.println("User 1: " + user1);
             System.out.println("User 2: " + user2);
             if (user1 == null && user2 == null) {
-                System.out.println(roomVO);
                 roomVO = null;
-                System.out.println("Queue Size : "+userQueue.size());
+                System.out.println("Room Empty\nQueue Size : " + userQueue.size());
             }
             return code;
         }

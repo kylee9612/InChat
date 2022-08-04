@@ -9,7 +9,7 @@
 <%@ include file="../fix/header.jsp" %>
 <c:choose>
     <c:when test="${log==null}">
-        <c:redirect url="/index"/>
+        <c:redirect url="/login"/>
     </c:when>
 </c:choose>
 <div class="wrap">
@@ -47,6 +47,22 @@
         }
         queueWork();
     }, 1000);
+
+    document.addEventListener("keydown", event => {
+        if(event.keyCode === 116){
+            delQueue();
+        }
+    })
+
+    function delQueue(){
+        jQuery.ajax({
+            type: "POST",
+            url: "/v1/delete-queue",
+            contentType: 'application/json',
+            data: JSON.stringify(user),
+            dataType: "JSON",
+        });
+    }
 
 </script>
 <%@ include file="../fix/footer.jsp" %>
