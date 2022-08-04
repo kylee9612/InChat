@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/chatroom.css">
 </head>
 <c:if test="${log==null}">
-    <c:redirect url="/index"/>
+    <c:redirect url="/login"/>
 </c:if>
 <div class="wrap">
     <div class="contents">
@@ -42,8 +42,7 @@
     document.addEventListener("keydown", event => {
         if (event.keyCode === 13) {
             sendMessage();
-        }
-        else if(event.keyCode === 116){
+        } else if (event.keyCode === 116) {
             onClose();
         }
     })
@@ -61,10 +60,10 @@
     function onOpen(event) {
         let str = usernick + ":님이 입장했습니다";
         sock.send(str);
-        refreshUserList();
     }
 
-    function refreshUserList(){
+    function refreshUserList() {
+        userList.html("");
         jQuery.ajax({
             type: "GET",
             url: "/v3/get-user-list",
@@ -72,13 +71,12 @@
             success: function (e) {
                 console.log(e);
                 // let temp = JSON.stringify(e).substring(3,this.length-2).split(`","`);
-                for(let i = 0; i < e.length; i++){
-                    if(e[i]!==usernick){
-                        userList.append("<li>"+e[i]+"</li>");
-                    }
+                for (let i = 0; i < e.length; i++) {
+                    userList.append("<li>" + e[i] + "</li>");
+
                 }
             },
-            error : function (e){
+            error: function (e) {
 
             }
         })
@@ -105,29 +103,16 @@
         for (let i = 0; i < arr.length; i++) {
             console.log('arr[' + i + "] : " + arr[i]);
         }
-        if (arr[1] === "님이 입장했습니다") {
-            // refreshUserList();
-            userListStr = "<li>" + arr[0] + "</li>";
-            console.log(userList.val().includes(userListStr))
-            if(!userList.val().includes(userListStr)) {
-                userList.append(userListStr);
-            }
-        } else if (arr[1] === "님이 퇴장했습니다") {
-            let delstr = "<li>" + arr[0] + "</li>";
-            let userListBody = document.getElementById("user_list").innerHTML.valueOf().split(delstr);
-            let finalStr = userListBody[0];
-            if (userListBody[1] !== undefined) {
-                finalStr += userListBody[1];
-            }
-            document.getElementById("user_list").innerHTML = finalStr;
+        if (arr[1] === "님이 입장했습니다" || arr[1] === "님이 퇴장했습니다"){
+            refreshUserList();
         }
 
         let cur_session = '${log.getNickname()}';
 
         sessionId = arr[0];
-        for(let i = 1 ; i < arr.length; i++){
+        for (let i = 1; i < arr.length; i++) {
             message += arr[i];
-            if(i+1 < arr.length)
+            if (i + 1 < arr.length)
                 message += ":";
         }
 

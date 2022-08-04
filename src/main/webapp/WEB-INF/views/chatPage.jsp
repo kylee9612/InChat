@@ -6,11 +6,11 @@
 </head>
 <%
     if (request.getParameter("room-code") == null) {
-        response.sendRedirect("/index");
+        response.sendRedirect("/login");
     }
 %>
 <c:if test="${log==null}">
-    <c:redirect url="/index"/>
+    <c:redirect url="/login"/>
 </c:if>
 <div class="wrap">
     <div class="contents">
