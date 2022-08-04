@@ -48,6 +48,8 @@
 <script>
     const url = new URL(location.href);
     const param = url.searchParams;
+    const textArea = $("#text-input");
+    const text_input = document.querySelector("#text-input");
 
     let roomCode = param.get("room-code");
     let username = '${log.getNickname()}';
@@ -71,7 +73,6 @@
     stomp.connect({}, function () {
         stomp.subscribe("/sub/chat/rooms/" + roomCode, function (chat) {
             let content = JSON.parse(chat.body);
-            let textArea = $("#text-input");
             console.log(chat);
 
             let writer = content.writer;
@@ -89,7 +90,7 @@
             str +="</span></p>";
             str += "</div></div>";
             textArea.append(str);
-            textArea.scrollTop = textArea.scrollHeight;
+            text_input.scrollTop = text_input.scrollHeight;
         })
         stomp.send('pub/chat/enter', {}, JSON.stringify(
             {room_code: roomCode, writer: username}));

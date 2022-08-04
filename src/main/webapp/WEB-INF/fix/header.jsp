@@ -10,9 +10,8 @@
 <html>
 <head>
     <link rel="shortcut icon" href="img/InChat.png">
-    <meta charset="UTF-8">
     <meta property="og:title" content="InChat">
-    <meta property="og:description" content="실시간 그룹채팅과 일대일 채팅 및 커뮤니티 기능을 즐기세요!">
+    <meta charset="UTF-8" property="og:description" content="실시간 그룹채팅과 일대일 채팅 및 커뮤니티 기능을 즐기세요!">
     <meta property="og:image" content="img/InChat.png">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

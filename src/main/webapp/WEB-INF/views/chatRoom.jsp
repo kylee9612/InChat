@@ -31,6 +31,9 @@
 <script>
     const usernick = '${log.getNickname()}';
     const userList = $("#user_list");
+    const textArea = $("#text-input");
+    const text_input = document.querySelector("#text-input");
+
     sock = new WebSocket('ws://in-chat.online:8080/ws/chat');
     sock.onopen = onOpen;
     sock.onmessage = onMessage;
@@ -135,8 +138,8 @@
         let str = "<div class='alert " + target + "'>";
         str += "<p>" + sessionId + " : " + message + "</p>";
         str += "</div></div>";
-
-        $("#text-input").append(str);
+        textArea.append(str);
+        text_input.scrollTop = text_input.scrollHeight;
     }
 
 </script>
