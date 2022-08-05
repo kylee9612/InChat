@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.socket.WebSocketSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -103,11 +102,16 @@ public class UserController {
         UserVO user = userService.readUser(userRequestDto);
         for (UserVO userVO : userQueue) {
             if (userVO.getId().equals(user.getId())) {
-                return false;
+                userQueue.remove(userVO);
+                break;
             }
         }
-        if (user1 != null && user.getId().equals(user1.getId()) || user2 != null && user.getId().equals(user2.getId()))
-            return false;
+        if (user1 != null && user.getId().equals(user1.getId())){
+            user1 = null;
+        }
+        else if(user2 != null && user.getId().equals(user2.getId())){
+            user2 = null;
+        }
         userQueue.add(user);
         System.out.println(user.getNickname() + " added in Queue\nQueue size : " + userQueue.size());
         return true;

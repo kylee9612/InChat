@@ -73,7 +73,6 @@
                 // let temp = JSON.stringify(e).substring(3,this.length-2).split(`","`);
                 for (let i = 0; i < e.length; i++) {
                     userList.append("<li>" + e[i] + "</li>");
-
                 }
             },
             error: function (e) {

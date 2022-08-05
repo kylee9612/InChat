@@ -28,7 +28,7 @@
         <button onclick="location.href = '/loading'">Start to Chat!</button>
         <button onclick ="location.href='/chatroom'">Start Group Chat!</button>
         <br>
-        <button onclick ="location.href = '/community'" style = "width : 350px; margin: 0;">To Our Community</button>
+        <button onclick ="location.href = '/community?page=1'" style = "width : 330px; margin: 0;">To Our Community</button>
     </div>
 </div>
 <%@ include file="../fix/footer.jsp"%>

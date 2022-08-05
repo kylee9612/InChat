@@ -118,3 +118,13 @@ function waitQueue(user){
         }
     });
 }
+
+function delQueue(){
+    jQuery.ajax({
+        type: "POST",
+        url: "/v1/delete-queue",
+        contentType: 'application/json',
+        data: JSON.stringify(user),
+        dataType: "JSON",
+    });
+}

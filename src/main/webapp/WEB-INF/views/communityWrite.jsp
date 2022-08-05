@@ -51,7 +51,7 @@
             datatype: "JSON",
             success: function (e) {
                 alert("성공적으로 글이 작성되었습니다.")
-                location.href = "/community"
+                location.href = "/community?page=${pageNo}"
             },
             error: function (e) {
                 alert("에러")
@@ -77,7 +77,7 @@
                 datatype: "JSON",
                 success: function (e) {
                     alert("성공적으로 글이 수정되었습니다.")
-                    location.href = "/community"
+                    location.href = "/community?page=${pageNo}"
                 },
                 error: function (e) {
                     alert("에러")

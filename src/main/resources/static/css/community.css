@@ -10,7 +10,6 @@
 .contents ul{
     list-style: none;
     margin-top: 3%;
-    overflow: hidden;
 }
 
 .contents ul li{
@@ -43,9 +42,9 @@ button:hover{
 }
 
 .write_btn{
-    position: absolute;
-    bottom : -5%;
-    left : 62%;
+    position: relative;
+    bottom: 10%;
+    left: 85%;
 }
 
 .no{
