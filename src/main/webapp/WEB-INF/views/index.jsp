@@ -10,7 +10,11 @@
     <link rel = 'stylesheet' href = 'css/index.css'>
 </head>
 <div class = "wrap">
-    <div class = "bg" src="img/bg.png"></div>
+    <div class = "right_bg">
+        <video autoplay loop muted>
+            <source src="video/index_text.mp4" type="video/mp4">
+        </video>
+    </div>
     <div class = "contents">
         <p class = "word">
            <span>WelCome To
@@ -25,10 +29,10 @@
                World
            </span><br>
         </p>
-        <button onclick="location.href = '/loading'">Start to Chat!</button>
+        <button onclick="location.href = '/loading'">Start 1:1 Chat!</button>
         <button onclick ="location.href='/chatroom'">Start Group Chat!</button>
         <br>
-        <button onclick ="location.href = '/community'" style = "width : 350px; margin: 0;">To Our Community</button>
+        <button onclick ="location.href = '/community'" style = "width : 330px; margin: 0 0 0 1%;">To Our Community</button>
     </div>
 </div>
 <%@ include file="../fix/footer.jsp"%>
