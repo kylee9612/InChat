@@ -12,39 +12,39 @@
     <link rel="shortcut icon" href="img/InChat.png">
     <meta charset="UTF-8">
     <meta property="og:title" content="InChat">
-    <meta property="og:description" content="실시간 그룹채팅과 일대일 채팅 및 커뮤니티 기능을 즐기세요!">
-    <meta property="og:image" content="img/InChat.png">
+    <meta property="og:description" content="Enjoy Live Chat!">
+    <meta property="og:image" content="https://i.ibb.co/1mFZN0n/inchat-thumb.png">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="css/header.css">
     <title>InChat</title>
 </head>
-<body>
+<body onbeforeunload="delQueue()">
 <script src="script/validation.js"></script>
 <div class="header_wrap">
     <div class="container">
         <span>
-            <a class="logo" onclick="movePage('/index')">InChat></a>
+            <a class="logo" onclick="location.href='/index'">InChat></a>
         </span>
         <ul class="gnb">
             <c:set var="log" value="${log}"/>
             <c:choose>
                 <c:when test="${log!=null}">
                     <c:out value='
-                <li onclick="logOutAction()">
+                <li onclick="movePage(`/logout`)">
                     <span>Log Out</span>
                 </li>
-                <li onclick="movePage(`/mypage`)">
+                <li onclick="location.href=`/mypage`">
                     <span >My Page</span>
                 </li>
                 ' escapeXml="false"/>
                 </c:when>
                 <c:otherwise>
                     <c:out value='
-                <li onclick="movePage(`/login`)">
+                <li onclick="location.href=`/login`">
                     <span>Log In</span>
                 </li>
-                <li onclick="movePage(`/joinIn`)">
+                <li onclick="location.href=`/joinIn`">
                     <span>Join In</span>
                 </li>
                 ' escapeXml="false"/>
@@ -61,13 +61,24 @@
             if (sock !== undefined) {
                 onClose();
             }
-            if(location.href === "/loading"){
+            else if(location.href.indexOf("/loading") >= 0){
                 delQueue();
+            }
+            else if(uri === "/logout"){
+                logOutAction();
+                return;
             }
         }catch (error){
             location.href=uri;
         }
-        location.href=uri;
+        if(uri !== "")
+            location.href=uri;
     }
+
+    window.addEventListener("beforeunload",function (e){
+        e.preventDefault();
+        movePage("");
+    });
+
 </script>
 

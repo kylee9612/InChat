@@ -49,6 +49,11 @@ public class ChatHandler extends TextWebSocketHandler {
     }
 
     public Set<String> getUserSession(){
+        for(String i : userSession.keySet()){
+            if(!sessionArrayList.contains(userSession.get(i))){
+                userSession.remove(i);
+            }
+        }
         return userSession.keySet();
     }
 }
