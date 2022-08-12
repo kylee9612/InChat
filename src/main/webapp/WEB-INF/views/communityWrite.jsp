@@ -13,6 +13,9 @@
 <c:if test="${log==null}">
     <c:redirect url="/login"/>
 </c:if>
+<c:if test="${pageNo eq null}">
+    <c:set var="pageNo" value="1"/>
+</c:if>
 <div class="wrap">
     <h2 class="pageTitle">글 작성하기</h2>
     <div class="cons">
