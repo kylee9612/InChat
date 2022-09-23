@@ -9,7 +9,7 @@
 
 # 사용 라이브러리
 - JSTL
-- JQuery (AJAX)
+- JQuery (ajax)
 - WebSocket
 - SockJS, STOMP
 
